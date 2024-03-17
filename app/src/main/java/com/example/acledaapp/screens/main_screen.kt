@@ -1,9 +1,14 @@
 package com.example.acledaapp.screens
 
-import android.graphics.fonts.FontStyle
+
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Surface
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.painterResource
 import androidx.compose.foundation.Image
 import android.os.Bundle
+import androidx.navigation.NavController
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -39,7 +44,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -72,32 +76,25 @@ import androidx.compose.ui.unit.max
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.AsyncImage
 import coil.compose.AsyncImagePainter.State.Empty.painter
+import com.example.acledaapp.ui.theme.AcledaAppTheme
 import androidx.compose.ui.text.font.FontFamily
-import androidx.navigation.NavHost
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
+import com.example.acledaapp.screens.mainScreen
 import com.example.acledaapp.ui.theme.AcledaAppTheme
 
-
 @Composable
-fun DrawerHeader(){
+fun mainScreen(navController: NavController) {
     Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 64.dp),
-        contentAlignment = Alignment.Center
-    ){
-        Text(
-            text = "Header", fontSize = 60.sp
-        )
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center,
+    ) {
+        Button(onClick = {
+            navController.navigate("detail")
+        }){
+            Text(
+                "Go to details", color = Color.White,
+            )
+
+        }
 
     }
-}
-
-@Composable
-fun DrawerBody(
-
-){
-
 }
