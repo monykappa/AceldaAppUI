@@ -56,7 +56,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
-import com.example.acledaapp.ui.theme.AcledaAppTheme
+//import com.example.acledaapp.ui.theme.AcledaAppTheme
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.*
 import androidx.compose.ui.text.TextStyle
@@ -64,6 +64,7 @@ import androidx.compose.ui.text.font.*
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color.Companion.Gray
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
@@ -78,23 +79,162 @@ import coil.compose.AsyncImage
 import coil.compose.AsyncImagePainter.State.Empty.painter
 import com.example.acledaapp.ui.theme.AcledaAppTheme
 import androidx.compose.ui.text.font.FontFamily
+import com.example.acledaapp.R
 import com.example.acledaapp.screens.mainScreen
 import com.example.acledaapp.ui.theme.AcledaAppTheme
+import com.example.acledaapp.ui.theme.Purple40
 
+
+val BlueBackground = Color(0xFF2c446a)
+
+
+
+
+
+@Preview(showBackground = true)
 @Composable
-fun mainScreen(navController: NavController) {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center,
-    ) {
-        Button(onClick = {
-            navController.navigate("detail")
-        }){
-            Text(
-                "Go to details", color = Color.White,
-            )
+fun mainScreen() {
+    Column(modifier = Modifier.fillMaxSize()) {
+        Surface(
+            modifier = Modifier
+                .height(80.dp)
+                .fillMaxWidth(),
+            color = Color(0xFF25395A)
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(top = 16.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
 
+                IconButton(onClick = { /* Handle menu icon click */ }) {
+                    Image(
+                        painter = painterResource(id = R.drawable.menu_icon),
+                        contentDescription = null,
+                        modifier = Modifier.size(20.dp)
+//                            .border(
+//                                width = 1.dp,
+//                                color = Color.Red,
+//                            )
+                    )
+                }
+
+
+                Image(
+                    painter = painterResource(id = R.drawable.aclogo),
+                    contentDescription = null,
+                    modifier = Modifier.size(150.dp)
+//                        .border(
+//                            width = 1.dp,
+//                            color = Color.Red,
+//                        )
+                )
+
+
+
+                Spacer(modifier = Modifier.weight(1f))
+
+                // Right side: Notification icon
+                IconButton(onClick = { /* Handle notification icon click */ }) {
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_notification),
+                        contentDescription = null,
+                        modifier = Modifier.size(20.dp)
+                    )
+                }
+
+                Spacer(modifier = Modifier.width(0.dp))
+
+                // Right side: Dollar icon
+                IconButton(onClick = { /* Handle dollar icon click */ }) {
+                    Image(
+                        painter = painterResource(id = R.drawable.unnamed),
+                        contentDescription = null,
+                        modifier = Modifier.size(30.dp)
+
+                    )
+                }
+            }
         }
 
+
+        Spacer(modifier = Modifier.height(8.dp))
+        // Balance section
+        Spacer(modifier = Modifier.height(8.dp))
+        // Feature buttons section
+        Row(modifier = Modifier.padding(horizontal = 16.dp)) {
+            Button(onClick = { /* Payments button click */ }) {
+                androidx.compose.material.Text("Payments")
+            }
+            Spacer(modifier = Modifier.width(16.dp))
+            Button(onClick = { /* Mobile Top-up button click */ }) {
+                androidx.compose.material.Text("Mobile Top-up")
+            }
+            Spacer(modifier = Modifier.width(16.dp))
+            Button(onClick = { /* Transfers button click */ }) {
+                androidx.compose.material.Text("Transfers")
+            }
+        }
+        Spacer(modifier = Modifier.height(16.dp))
+        // Service buttons section
+        Row(
+            modifier = Modifier
+                .padding(horizontal = 16.dp)
+                .fillMaxWidth()
+        ) {
+            Button(onClick = { /* Pay-Me button click */ }) {
+                androidx.compose.material.Text("Pay-Me")
+            }
+            Spacer(modifier = Modifier.width(16.dp))
+            Button(onClick = { /* Scan QR button click */ }) {
+                androidx.compose.material.Text("Scan QR")
+            }
+            Spacer(modifier = Modifier.weight(1f))
+            Button(onClick = { /* Accounts button click */ }) {
+                androidx.compose.material.Text("Accounts")
+            }
+        }
+        Spacer(modifier = Modifier.height(16.dp))
+        // More features section
+        Row(
+            modifier = Modifier
+                .padding(horizontal = 16.dp)
+                .fillMaxWidth()
+        ) {
+            Button(onClick = { /* Deposits button click */ }) {
+                androidx.compose.material.Text("Deposits")
+            }
+            Spacer(modifier = Modifier.width(16.dp))
+            Button(onClick = { /* Loans button click */ }) {
+                androidx.compose.material.Text("Loans")
+            }
+            Spacer(modifier = Modifier.width(16.dp))
+            Button(onClick = { /* Quick Cash button click */ }) {
+                androidx.compose.material.Text("Quick Cash")
+            }
+        }
+        Spacer(modifier = Modifier.weight(1f))
+        // Bottom section with favorites, exchange rate, etc.
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp)
+        ) {
+            Column(modifier = Modifier.weight(1f)) {
+                androidx.compose.material.Text("FAVORITES")
+                androidx.compose.material.Text("Save recipient information for quick transaction.")
+            }
+            Spacer(modifier = Modifier.width(16.dp))
+            Column(modifier = Modifier.weight(1f)) {
+                androidx.compose.material.Text("EXCHANGE RATE")
+                androidx.compose.material.Text("4,110")
+            }
+            Spacer(modifier = Modifier.width(16.dp))
+            androidx.compose.material.Text("OTHER SER")
+        }
     }
 }
+
+
+
