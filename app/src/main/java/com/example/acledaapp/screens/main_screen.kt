@@ -64,8 +64,12 @@ import androidx.compose.ui.text.font.*
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.Gray
+import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.modifier.modifierLocalConsumer
@@ -86,6 +90,25 @@ import com.example.acledaapp.ui.theme.Purple40
 
 
 val BlueBackground = Color(0xFF2c446a)
+
+
+
+
+fun Modifier.bottomBorderColor(color: Color, borderWidth: Dp) = drawBehind {
+    drawLine(
+        color = color,
+        start = Offset(0f, size.height),
+        end = Offset(size.width, size.height),
+        strokeWidth = borderWidth.toPx()
+    )
+}
+
+val quicksandFontFamily = FontFamily(
+    Font(R.font.font_quicksand),
+    // Add more font styles if needed (e.g., bold, italic)
+    // Font(R.font.poppins_bold, FontWeight.Bold),
+    // Font(R.font.poppins_italic, FontStyle.Italic)
+)
 
 
 
@@ -159,80 +182,282 @@ fun mainScreen() {
         }
 
 
-        Spacer(modifier = Modifier.height(8.dp))
+
+
         // Balance section
-        Spacer(modifier = Modifier.height(8.dp))
-        // Feature buttons section
-        Row(modifier = Modifier.padding(horizontal = 16.dp)) {
-            Button(onClick = { /* Payments button click */ }) {
-                androidx.compose.material.Text("Payments")
-            }
-            Spacer(modifier = Modifier.width(16.dp))
-            Button(onClick = { /* Mobile Top-up button click */ }) {
-                androidx.compose.material.Text("Mobile Top-up")
-            }
-            Spacer(modifier = Modifier.width(16.dp))
-            Button(onClick = { /* Transfers button click */ }) {
-                androidx.compose.material.Text("Transfers")
-            }
-        }
-        Spacer(modifier = Modifier.height(16.dp))
-        // Service buttons section
-        Row(
-            modifier = Modifier
-                .padding(horizontal = 16.dp)
-                .fillMaxWidth()
+        Surface(
+            modifier = Modifier.fillMaxWidth(),
         ) {
-            Button(onClick = { /* Pay-Me button click */ }) {
-                androidx.compose.material.Text("Pay-Me")
-            }
-            Spacer(modifier = Modifier.width(16.dp))
-            Button(onClick = { /* Scan QR button click */ }) {
-                androidx.compose.material.Text("Scan QR")
-            }
-            Spacer(modifier = Modifier.weight(1f))
-            Button(onClick = { /* Accounts button click */ }) {
-                androidx.compose.material.Text("Accounts")
+            Row(
+                modifier = Modifier
+                    .background(color = Color(0xFF21324E))
+                    .bottomBorderColor(color = Color(0xFF476CB0), borderWidth = 1.dp)
+            )  {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.weight(1f).padding(20.dp),
+                ) {
+                    IconButton(onClick = { /* Payments button click */ }) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.payment),
+                                contentDescription = "Payments",
+                                modifier = Modifier.size(40.dp)
+                            )
+                            Text(
+                                "Payments",
+                                textAlign = TextAlign.Center,
+                                fontWeight = FontWeight.Bold,
+                                fontSize= 14.sp,
+                                color = Color.White,
+                                fontFamily = quicksandFontFamily,
+                                modifier = Modifier.padding(top = 8.dp)
+                            )
+                        }
+                    }
+                }
+                Spacer(modifier = Modifier.width(16.dp))
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(vertical = 20.dp)
+                ) {
+                    IconButton(onClick = { /* Mobile Top-up button click */ }) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.mobile),
+                                contentDescription = "Mobile Top-up",
+                                modifier = Modifier.size(40.dp)
+                            )
+                            Text(
+                                "Mobile Top-up",
+                                textAlign = TextAlign.Center,
+                                fontWeight = FontWeight.Bold,
+                                fontSize= 14.sp,
+                                color = Color.White,
+                                fontFamily = quicksandFontFamily,
+                                modifier = Modifier.padding(top = 8.dp)
+                            )
+                        }
+                    }
+                }
+                Spacer(modifier = Modifier.width(16.dp))
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.weight(1f).padding(20.dp)
+                ) {
+                    IconButton(onClick = { /* Transfers button click */ }) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.transfer),
+                                contentDescription = "Transfers",
+                                modifier = Modifier.size(40.dp)
+                            )
+                            Text(
+                                "Transfers",
+                                textAlign = TextAlign.Center,
+                                fontWeight = FontWeight.Bold,
+                                fontSize= 14.sp,
+                                color = Color.White,
+                                fontFamily = quicksandFontFamily,
+                                modifier = Modifier.padding(top = 8.dp)
+                            )
+                        }
+                    }
+                }
             }
         }
-        Spacer(modifier = Modifier.height(16.dp))
-        // More features section
-        Row(
-            modifier = Modifier
-                .padding(horizontal = 16.dp)
-                .fillMaxWidth()
+
+
+        // Balance section
+        Surface(
+            modifier = Modifier.fillMaxWidth(),
         ) {
-            Button(onClick = { /* Deposits button click */ }) {
-                androidx.compose.material.Text("Deposits")
-            }
-            Spacer(modifier = Modifier.width(16.dp))
-            Button(onClick = { /* Loans button click */ }) {
-                androidx.compose.material.Text("Loans")
-            }
-            Spacer(modifier = Modifier.width(16.dp))
-            Button(onClick = { /* Quick Cash button click */ }) {
-                androidx.compose.material.Text("Quick Cash")
+            Row(
+                modifier = Modifier
+                    .background(color = Color(0xFF21324E))
+                    .bottomBorderColor(color = Color(0xFF476CB0), borderWidth = 1.dp)
+            ) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.weight(1f).padding(20.dp),
+                ) {
+                    IconButton(onClick = { /* Payments button click */ }) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.pay_me),
+                                contentDescription = "Pay me",
+                                modifier = Modifier.size(40.dp)
+                            )
+                            Text(
+                                "Pay-Me",
+                                textAlign = TextAlign.Center,
+                                fontWeight = FontWeight.Bold,
+                                fontSize= 14.sp,
+                                color = Color.White,
+                                fontFamily = quicksandFontFamily,
+                                modifier = Modifier.padding(top = 8.dp)
+                            )
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.width(16.dp))
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(vertical = 20.dp)
+                ) {
+                    IconButton(onClick = { /* Mobile Top-up button click */ }) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.scan_qr),
+                                contentDescription = "Scan QR",
+                                modifier = Modifier.size(40.dp)
+                            )
+                            Text(
+                                "Scan QR",
+                                textAlign = TextAlign.Center,
+                                fontWeight = FontWeight.Bold,
+                                fontSize= 14.sp,
+                                color = Color.White,
+                                fontFamily = quicksandFontFamily,
+                                modifier = Modifier.padding(top = 8.dp)
+                            )
+                        }
+                    }
+                }
+                Spacer(modifier = Modifier.width(16.dp))
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.weight(1f).padding(20.dp)
+                ) {
+                    IconButton(onClick = { /* Transfers button click */ }) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.account),
+                                contentDescription = "Accounts",
+                                modifier = Modifier.size(40.dp)
+                            )
+                            Text(
+                                "Accounts",
+                                textAlign = TextAlign.Center,
+                                fontWeight = FontWeight.Bold,
+                                fontSize= 14.sp,
+                                color = Color.White,
+                                fontFamily = quicksandFontFamily,
+                                modifier = Modifier.padding(top = 8.dp)
+                            )
+                        }
+                    }
+                }
             }
         }
-        Spacer(modifier = Modifier.weight(1f))
-        // Bottom section with favorites, exchange rate, etc.
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 16.dp)
+
+        // Balance section
+        Surface(
+            modifier = Modifier.fillMaxWidth(),
         ) {
-            Column(modifier = Modifier.weight(1f)) {
-                androidx.compose.material.Text("FAVORITES")
-                androidx.compose.material.Text("Save recipient information for quick transaction.")
+            Row(
+                modifier = Modifier
+                    .background(Color(0xFF21324E))
+            ) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.weight(1f).padding(20.dp),
+                ) {
+                    IconButton(onClick = { /* Payments button click */ }) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.deposit),
+                                contentDescription = "Deposits",
+                                modifier = Modifier.size(40.dp)
+                            )
+                            Text(
+                                "Deposits",
+                                textAlign = TextAlign.Center,
+                                fontWeight = FontWeight.Bold,
+                                fontSize= 14.sp,
+                                color = Color.White,
+                                fontFamily = quicksandFontFamily,
+                                modifier = Modifier.padding(top = 8.dp)
+                            )
+                        }
+                    }
+                }
+                Spacer(modifier = Modifier.width(16.dp))
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(vertical = 20.dp)
+                ) {
+                    IconButton(onClick = { /* Mobile Top-up button click */ }) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.loan),
+                                contentDescription = "Loans",
+                                modifier = Modifier.size(40.dp)
+                            )
+                            Text(
+                                "Loans",
+                                textAlign = TextAlign.Center,
+                                fontWeight = FontWeight.Bold,
+                                fontSize= 14.sp,
+                                color = Color.White,
+                                fontFamily = quicksandFontFamily,
+                                modifier = Modifier.padding(top = 8.dp)
+                            )
+                        }
+                    }
+                }
+                Spacer(modifier = Modifier.width(16.dp))
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.weight(1f).padding(20.dp)
+                ) {
+                    IconButton(onClick = { /* Transfers button click */ }) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.quick_cash),
+                                contentDescription = "Quick Cash",
+                                modifier = Modifier.size(40.dp)
+                            )
+                            Text(
+                                "Quick Cash",
+                                textAlign = TextAlign.Center,
+                                fontWeight = FontWeight.Bold,
+                                fontSize= 14.sp,
+                                color = Color.White,
+                                fontFamily = quicksandFontFamily,
+                                modifier = Modifier.padding(top = 8.dp)
+                            )
+                        }
+                    }
+                }
             }
-            Spacer(modifier = Modifier.width(16.dp))
-            Column(modifier = Modifier.weight(1f)) {
-                androidx.compose.material.Text("EXCHANGE RATE")
-                androidx.compose.material.Text("4,110")
-            }
-            Spacer(modifier = Modifier.width(16.dp))
-            androidx.compose.material.Text("OTHER SER")
         }
+
     }
 }
 
