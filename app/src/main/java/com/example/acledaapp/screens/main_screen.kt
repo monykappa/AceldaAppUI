@@ -1,6 +1,7 @@
 package com.example.acledaapp.screens
 
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -11,6 +12,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,6 +25,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
@@ -31,16 +35,23 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 //import com.example.acledaapp.ui.theme.AcledaAppTheme
 import androidx.compose.material.*
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color.Companion.Red
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import com.example.acledaapp.R
 import androidx.navigation.NavHostController
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 
 val BlueBackground = Color(0xFF2c446a)
@@ -123,29 +134,43 @@ val favoriteItems = listOf(
 
 )
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun mainScreen(navController: NavController) {
-    Column(modifier = Modifier.fillMaxSize()) {
-        //Top Navigation Bar
-        TopNavBar(navController)
+    val scaffoldState = rememberScaffoldState()
+    val scope = rememberCoroutineScope()
 
-        //Menu Section
-        MenuSection(menuRow1, height = 118.dp)
-        MenuSection(menuRow2, height = 120.dp)
-        MenuSection(menuRow3, height = 122.dp)
+    Scaffold(
+        scaffoldState = scaffoldState,
+        drawerContent = {
+            DrawerContent(navController = navController)
+        },
+        drawerBackgroundColor = Color.White,
+        drawerContentColor = Color.Black,
+        topBar = {
+            TopNavBar(navController = navController, scaffoldState = scaffoldState, scope = scope)
+        },
+        content = {
+            Column(modifier = Modifier.fillMaxSize()) {
+                // Menu Section
+                MenuSection(menuRow1, height = 118.dp)
+                MenuSection(menuRow2, height = 120.dp)
+                MenuSection(menuRow3, height = 122.dp)
 
-        //Favorites container boxes
-        favoriteBoxes(favoriteItems)
+                // Favorites container boxes
+                favoriteBoxes(favoriteItems)
 
-        //Bottom background
-        BottomBackground()
-    }
+                // Bottom background
+                BottomBackground()
+            }
+        }
+    )
 }
 
 
-
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun TopNavBar(navController: NavController) {
+fun TopNavBar(navController: NavController, scaffoldState: ScaffoldState, scope: CoroutineScope) {
     Surface(
         modifier = Modifier
             .height(85.dp)
@@ -158,8 +183,12 @@ fun TopNavBar(navController: NavController) {
                 .padding(top = 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            //menu icons
-            IconButton(onClick = { /* Handle menu icon click */ }) {
+            //menu icon
+            IconButton(onClick = {
+                scope.launch {
+                    scaffoldState.drawerState.open()
+                }
+            }) {
                 Image(
                     painter = painterResource(id = R.drawable.menu_icon),
                     contentDescription = null,
@@ -198,6 +227,78 @@ fun TopNavBar(navController: NavController) {
         }
     }
 }
+
+
+@Composable
+fun DrawerContent(navController: NavController) {
+    Column {
+        TopAppBar(
+            backgroundColor = Color(0xFF112032),
+            modifier = Modifier.height(97.dp),
+            content = {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically // Align content vertically to the center
+                ) {
+                    // Profile picture on the left
+                    Image(
+                        painter = painterResource(id = R.drawable.pfp),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(55.dp)
+                            .clip(RoundedCornerShape(50.dp)),
+                        contentScale = ContentScale.Crop
+                    )
+
+                    Spacer(modifier = Modifier.width(16.dp)) // Spacer for spacing between profile picture and name
+
+                    // Name and phone number on the right
+                    Column {
+                        Text(
+                            text = "Ouddommony Kim",
+                            color = Color(0xFFc9a02b),
+                            style = MaterialTheme.typography.subtitle1,
+                        )
+                        Text(
+                            text = "088 802 6678",
+                            fontSize = 12.sp,
+                            style = MaterialTheme.typography.subtitle1,
+                            color = Color.White,
+                        )
+                    }
+                }
+            }
+        )
+
+        // Content area
+        Column(modifier = Modifier.padding(16.dp)) {
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(
+                text = "Drawer Item 1",
+                style = MaterialTheme.typography.body1,
+                modifier = Modifier
+                    .clickable {
+                        // Navigate to a destination when a drawer item is clicked
+                        navController.navigate("drawer_item_1")
+                    }
+            )
+            Text(
+                text = "Drawer Item 2",
+                style = MaterialTheme.typography.body1,
+                modifier = Modifier
+                    .padding(top = 16.dp)
+                    .clickable {
+                        // Navigate to a destination when a drawer item is clicked
+                        navController.navigate("drawer_item_2")
+                    }
+            )
+        }
+    }
+}
+
+
+
+
+
 
 
 @Composable
