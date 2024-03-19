@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,7 +24,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
@@ -42,23 +40,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color.Companion.Red
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import com.example.acledaapp.R
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.acledaapp.models.FavoriteItem
+import com.example.acledaapp.models.MenuItems
+import com.example.acledaapp.models.drawerItems
+import com.example.acledaapp.models.favoriteItems
+import com.example.acledaapp.models.menuRow1
+import com.example.acledaapp.models.menuRow2
+import com.example.acledaapp.models.menuRow3
+import com.example.acledaapp.models.montyFontFamily
+import com.example.acledaapp.models.poppinsFontFamily
+import com.example.acledaapp.models.truenorgFontFamily
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-
 val BlueBackground = Color(0xFF2c446a)
-
-
-
 
 fun Modifier.bottomBorderColor(color: Color, borderWidth: Dp) = drawBehind {
     drawLine(
@@ -68,97 +69,6 @@ fun Modifier.bottomBorderColor(color: Color, borderWidth: Dp) = drawBehind {
         strokeWidth = borderWidth.toPx()
     )
 }
-
-val quicksandFontFamily = FontFamily(
-    Font(R.font.font_quicksand),
-)
-val poppinsFontFamily = FontFamily(
-    Font(R.font.font_poppins),
-)
-
-val truenorgFontFamily = FontFamily(
-    Font(R.font.font_truenorg),
-)
-val montyFontFamily = FontFamily(
-    Font(R.font.font_monty)
-)
-
-data class BalanceItem(
-    val imageResourceId: Int,
-    val text: String,
-    val contentDescription: String,
-)
-
-val menuRow1 = listOf(
-    BalanceItem(R.drawable.payment, "Payments", "Payment"),
-    BalanceItem(R.drawable.mobile, "Mobile Top-up", "Mobile Top-up"),
-    BalanceItem(R.drawable.transfer, "Transfers", "Transfers")
-)
-
-val menuRow2 = listOf(
-    BalanceItem(R.drawable.pay_me, "Pay-Me", "Pay-Me"),
-    BalanceItem(R.drawable.scan_qr, "Scan QR", "Scan QR"),
-    BalanceItem(R.drawable.account, "Accounts", "Accounts")
-)
-
-val menuRow3 = listOf(
-    BalanceItem(R.drawable.deposit, "Deposits", "Deposits"),
-    BalanceItem(R.drawable.loan, "Loans", "Loans"),
-    BalanceItem(R.drawable.quick_cash, "Quick Cash", "Quick Cash")
-)
-
-data class FavoriteItem(
-    val imageResourceId: Int,
-    val text: String,
-    val description: String,
-    val contentDescription: String
-)
-
-val favoriteItems = listOf(
-    FavoriteItem(
-        R.drawable.favorite,
-        "FAVOTIRES",
-        "Save recipient information for quick transaction.",
-        "Favorite 1"
-    ),
-    FavoriteItem(
-        R.drawable.riel,
-        "EXCHANGE RATE",
-        "Save recipient information for quick transaction.",
-        "Favorite 2"
-    ),
-    FavoriteItem(
-        R.drawable.boxes,
-        "OTHER SERVICES WITH PARTNERS",
-        "",
-        "Favorite 2"
-    ),
-    FavoriteItem(
-        R.drawable.promotions,
-        "PROMOTIONS",
-        "More discount and special offer from ACLEDA's partners",
-        "Favorite 2"
-    ),
-
-)
-
-
-data class DrawerItem(val iconId: Int, val text: String)
-
-val drawerItems = listOf(
-    DrawerItem(R.drawable.ic_global, "Country and Language"),
-    DrawerItem(R.drawable.ic_setting, "Settings"),
-    DrawerItem(R.drawable.ic_warning, "Terms and Conditions"),
-    DrawerItem(R.drawable.ic_security, "Security Tops"),
-    DrawerItem(R.drawable.ic_product, "Products & Services "),
-    DrawerItem(R.drawable.ic_faq, "FAQs"),
-    DrawerItem(R.drawable.ic_invite, "Invite Friends"),
-    DrawerItem(R.drawable.ic_stock, "ACLEDA Bank's Stock"),
-    DrawerItem(R.drawable.ic_cusomter, "Customer Loyalty"),
-    DrawerItem(R.drawable.ic_contact, "Contact Us (24/7)"),
-    DrawerItem(R.drawable.ic_help, "Help"),
-)
-
 
 
 
@@ -180,10 +90,9 @@ fun mainScreen(navController: NavController) {
         },
         content = {
             Column(modifier = Modifier.fillMaxSize()) {
-                // Menu Section
-                MenuSection(menuRow1, height = 118.dp)
-                MenuSection(menuRow2, height = 120.dp)
-                MenuSection(menuRow3, height = 122.dp)
+                MenuSection(menuRow1, height = 118.dp, navController = navController)
+                MenuSection(menuRow2, height = 120.dp, navController = navController)
+                MenuSection(menuRow3, height = 122.dp, navController = navController)
 
                 // Favorites container boxes
                 favoriteBoxes(favoriteItems)
@@ -193,6 +102,22 @@ fun mainScreen(navController: NavController) {
             }
         }
     )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DrawerContent(navController: NavController = rememberNavController()) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0xFF153251))
+    ) {
+        Column {
+            DrawerTopContent()
+            DrawerItemsContent()
+            DrawerBottomContent()
+        }
+    }
 }
 
 
@@ -225,31 +150,30 @@ fun TopNavBar(navController: NavController, scaffoldState: ScaffoldState, scope:
             }
 
             Image(
-                painter = painterResource(id = R.drawable.aclogo),
+                painter = painterResource(id = R.drawable.ic_acleda_logo),
                 contentDescription = null,
                 modifier = Modifier.size(150.dp)
             )
 
             Spacer(modifier = Modifier.weight(1f))
 
-            IconButton(onClick = { /* Handle notification icon click */ }) {
+            IconButton(onClick = {  navController.navigate("notificaiton_page") }) {
                 Image(
                     painter = painterResource(id = R.drawable.ic_notification),
                     contentDescription = null,
-                    modifier = Modifier.size(20.dp)
+                    modifier = Modifier.size(25.dp)
                 )
             }
 
             Spacer(modifier = Modifier.width(0.dp))
 
             IconButton(onClick = {
-                // Navigate to the "detail" destination (bakong.kt screen)
-                navController.navigate("detail")
+                navController.navigate("bakong")
             }) {
                 Image(
-                    painter = painterResource(id = R.drawable.bakong),
+                    painter = painterResource(id = R.drawable.ic_bakong),
                     contentDescription = null,
-                    modifier = Modifier.size(30.dp)
+                    modifier = Modifier.size(25.dp).clip(shape = RoundedCornerShape(8.dp))
                 )
             }
         }
@@ -257,107 +181,80 @@ fun TopNavBar(navController: NavController, scaffoldState: ScaffoldState, scope:
 }
 
 
-@Preview(showBackground = true)
 @Composable
-fun DrawerContent(navController: NavController = rememberNavController()) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFF1d3551))
-    ) {
-        Column {
-            TopAppBar(
-                backgroundColor = Color(0xFF112032),
-                modifier = Modifier.height(97.dp),
-                content = {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically // Align content vertically to the center
-                    ) {
-                        // Profile picture on the left
-                        Image(
-                            painter = painterResource(id = R.drawable.pfp),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(55.dp)
-                                .clip(RoundedCornerShape(50.dp)),
-                            contentScale = ContentScale.Crop
-                        )
-
-                        Spacer(modifier = Modifier.width(16.dp))
-
-                        // Name and phone number on the right
-                        Column {
-                            Text(
-                                text = "Ouddommony Kim",
-                                color = Color(0xFFc9a02b),
-                                fontFamily = truenorgFontFamily,
-                                style = MaterialTheme.typography.subtitle1,
-                            )
-                            Text(
-                                text = "012 345 6789",
-                                fontSize = 12.sp,
-                                style = MaterialTheme.typography.subtitle1,
-                                color = Color.White,
-                                fontFamily = truenorgFontFamily,
-                                modifier = Modifier
-                                    .padding(top = 5.dp)
-                            )
-                        }
-                    }
-                }
-            )
-
-            // Content area
-            Column(modifier = Modifier.padding(16.dp).fillMaxWidth()) {
-                Spacer(modifier = Modifier.height(16.dp))
-                drawerItems.forEach { item ->
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.padding (bottom = 30.dp))
-                    {
-                        Image(
-                            painter = painterResource(id = item.iconId),
-                            contentDescription = null,
-                            modifier = Modifier.size(24.dp)
-                        )
-                        Spacer(modifier = Modifier.width(16.dp))
-                        Text(
-                            text = item.text,
-                            fontSize = 13.sp,
-                            color = Color.White,
-                            fontFamily = truenorgFontFamily,
-                            modifier = Modifier
-
-                        )
-                    }
-                }
-            }
-
-            Column(
-                modifier = Modifier
-                    .offset(y = 15.dp)
-                    .fillMaxWidth(),
-
-                horizontalAlignment = Alignment.CenterHorizontally
+fun DrawerTopContent() {
+    TopAppBar(
+        backgroundColor = Color(0xFF112032),
+        modifier = Modifier.height(97.dp),
+        content = {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.offset(x= 15.dp)
             ) {
-                Text(
-                    "Version 6.22",
-                    color = Color.Gray,
-                    fontSize = 12.sp,
-                    fontFamily = truenorgFontFamily
+                // Profile picture on the left
+                Image(
+                    painter = painterResource(id = R.drawable.pfp),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(60.dp)
+                        .clip(RoundedCornerShape(50.dp)),
+                    contentScale = ContentScale.Crop
                 )
-                Text(
-                    "Released Date: March 11, 2024",
-                    color = Color.Gray,
-                    fontSize = 12.sp,
-                    fontFamily = truenorgFontFamily
-                )
-                Text(
-                    "Your ACLEDA mobile version is up to date",
-                    color = Color.Gray,
-                    fontSize = 12.sp,
-                    fontFamily = truenorgFontFamily
-                )
+
+                Spacer(modifier = Modifier.width(16.dp))
+
+                // Name and phone number on the right
+                Column {
+                    Text(
+                        text = "Ouddommony Kim",
+                        color = Color(0xFFc9a02b),
+                        fontFamily = truenorgFontFamily,
+                        style = MaterialTheme.typography.subtitle1,
+                    )
+                    Text(
+                        text = "012 345 6789",
+                        fontSize = 12.sp,
+                        style = MaterialTheme.typography.subtitle1,
+                        color = Color.White,
+                        fontFamily = truenorgFontFamily,
+                        modifier = Modifier
+                            .padding(top = 5.dp)
+                    )
+                }
+            }
+        }
+    )
+}
+
+@Composable
+fun DrawerItemsContent() {
+    Column(modifier = Modifier.padding(start = 6.dp).fillMaxWidth().offset(y = -15.dp)) {
+        Spacer(modifier = Modifier.height(16.dp))
+        drawerItems.forEach { item ->
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+//                    .padding(top = 5.dp)
+                    .clickable { /*Handle click here */ }
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.padding(12.dp)
+                ) {
+                    Image(
+                        painter = painterResource(id = item.iconId),
+                        contentDescription = null,
+                        modifier = Modifier.size(24.dp)
+                    )
+                    Spacer(modifier = Modifier.width(16.dp))
+                    Text(
+                        text = item.text,
+                        fontSize = 12.sp,
+                        color = Color.White,
+                        fontFamily = truenorgFontFamily,
+                        modifier = Modifier.align(Alignment.CenterVertically)
+                    )
+                }
             }
         }
     }
@@ -365,9 +262,41 @@ fun DrawerContent(navController: NavController = rememberNavController()) {
 
 
 
+@Composable
+fun DrawerBottomContent() {
+    Column(
+        modifier = Modifier
+            .offset(y = 35.dp)
+            .fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            "Version 6.22",
+            color = Color(0xFFababab),
+            fontSize = 12.sp,
+            fontFamily = truenorgFontFamily
+        )
+        Text(
+            "Released Date: March 11, 2024",
+            color = Color(0xFFababab),
+            fontSize = 12.sp,
+            fontFamily = truenorgFontFamily
+        )
+        Text(
+            "Your ACLEDA mobile version is up to date",
+            color = Color(0xFFababab),
+            fontSize = 12.sp,
+            fontFamily = truenorgFontFamily
+        )
+    }
+}
 
 @Composable
-fun MenuSection(balanceItems: List<BalanceItem>, height: Dp) {
+fun MenuSection(
+    menuItems: List<MenuItems>,
+    height: Dp,
+    navController: NavController // Add NavController parameter
+) {
     Surface(
         modifier = Modifier
             .fillMaxWidth()
@@ -379,18 +308,20 @@ fun MenuSection(balanceItems: List<BalanceItem>, height: Dp) {
                 .background(color = Color(0xFF21324E))
                 .bottomBorderColor(color = Color(0xFF476CB0), borderWidth = 1.dp)
         ) {
-            balanceItems.forEach { item ->
+            menuItems.forEach { item ->
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier
                         .weight(1f)
                         .padding(top = 20.dp),
                 ) {
-                    IconButton(onClick = { /* Handle button click */ }) {
+                    IconButton(onClick = {
+                        // Navigate to the destination corresponding to the clicked item
+                        navController.navigate(item.destination)
+                    }) {
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
-
-                            ) {
+                        ) {
                             Image(
                                 painter = painterResource(id = item.imageResourceId),
                                 contentDescription = item.text,
@@ -414,7 +345,6 @@ fun MenuSection(balanceItems: List<BalanceItem>, height: Dp) {
 }
 
 
-
 @Composable
 fun favoriteBoxes(favoriteItems: List<FavoriteItem>) {
     LazyRow(
@@ -423,21 +353,19 @@ fun favoriteBoxes(favoriteItems: List<FavoriteItem>) {
             .offset(y = 0.dp)
     ) {
         items(favoriteItems) { item ->
-            Surface(
+            Box(
                 modifier = Modifier
+
                     .width(150.dp)
                     .padding(10.dp),
-                elevation = 10.dp,
-                shape = RoundedCornerShape(20.dp)
             ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .background(Color.Transparent)
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    elevation = 10.dp,
+                    shape = RoundedCornerShape(20.dp)
                 ) {
                     Column(
-                        modifier = Modifier
-                            .fillMaxHeight(),
+                        modifier = Modifier.fillMaxHeight().clickable { /* Handle click here */ },
                         verticalArrangement = Arrangement.Top,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
