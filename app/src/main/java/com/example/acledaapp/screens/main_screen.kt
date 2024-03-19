@@ -50,6 +50,7 @@ import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import com.example.acledaapp.R
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -73,6 +74,13 @@ val quicksandFontFamily = FontFamily(
 )
 val poppinsFontFamily = FontFamily(
     Font(R.font.font_poppins),
+)
+
+val truenorgFontFamily = FontFamily(
+    Font(R.font.font_truenorg),
+)
+val montyFontFamily = FontFamily(
+    Font(R.font.font_monty)
 )
 
 data class BalanceItem(
@@ -133,6 +141,26 @@ val favoriteItems = listOf(
     ),
 
 )
+
+
+data class DrawerItem(val iconId: Int, val text: String)
+
+val drawerItems = listOf(
+    DrawerItem(R.drawable.ic_global, "Country and Language"),
+    DrawerItem(R.drawable.ic_setting, "Settings"),
+    DrawerItem(R.drawable.ic_warning, "Terms and Conditions"),
+    DrawerItem(R.drawable.ic_security, "Security Tops"),
+    DrawerItem(R.drawable.ic_product, "Products & Services "),
+    DrawerItem(R.drawable.ic_faq, "FAQs"),
+    DrawerItem(R.drawable.ic_invite, "Invite Friends"),
+    DrawerItem(R.drawable.ic_stock, "ACLEDA Bank's Stock"),
+    DrawerItem(R.drawable.ic_cusomter, "Customer Loyalty"),
+    DrawerItem(R.drawable.ic_contact, "Contact Us (24/7)"),
+    DrawerItem(R.drawable.ic_help, "Help"),
+)
+
+
+
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -229,74 +257,111 @@ fun TopNavBar(navController: NavController, scaffoldState: ScaffoldState, scope:
 }
 
 
+@Preview(showBackground = true)
 @Composable
-fun DrawerContent(navController: NavController) {
-    Column {
-        TopAppBar(
-            backgroundColor = Color(0xFF112032),
-            modifier = Modifier.height(97.dp),
-            content = {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically // Align content vertically to the center
-                ) {
-                    // Profile picture on the left
-                    Image(
-                        painter = painterResource(id = R.drawable.pfp),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .size(55.dp)
-                            .clip(RoundedCornerShape(50.dp)),
-                        contentScale = ContentScale.Crop
-                    )
-
-                    Spacer(modifier = Modifier.width(16.dp)) // Spacer for spacing between profile picture and name
-
-                    // Name and phone number on the right
-                    Column {
-                        Text(
-                            text = "Ouddommony Kim",
-                            color = Color(0xFFc9a02b),
-                            style = MaterialTheme.typography.subtitle1,
+fun DrawerContent(navController: NavController = rememberNavController()) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0xFF1d3551))
+    ) {
+        Column {
+            TopAppBar(
+                backgroundColor = Color(0xFF112032),
+                modifier = Modifier.height(97.dp),
+                content = {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically // Align content vertically to the center
+                    ) {
+                        // Profile picture on the left
+                        Image(
+                            painter = painterResource(id = R.drawable.pfp),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(55.dp)
+                                .clip(RoundedCornerShape(50.dp)),
+                            contentScale = ContentScale.Crop
                         )
+
+                        Spacer(modifier = Modifier.width(16.dp))
+
+                        // Name and phone number on the right
+                        Column {
+                            Text(
+                                text = "Ouddommony Kim",
+                                color = Color(0xFFc9a02b),
+                                fontFamily = truenorgFontFamily,
+                                style = MaterialTheme.typography.subtitle1,
+                            )
+                            Text(
+                                text = "012 345 6789",
+                                fontSize = 12.sp,
+                                style = MaterialTheme.typography.subtitle1,
+                                color = Color.White,
+                                fontFamily = truenorgFontFamily,
+                                modifier = Modifier
+                                    .padding(top = 5.dp)
+                            )
+                        }
+                    }
+                }
+            )
+
+            // Content area
+            Column(modifier = Modifier.padding(16.dp).fillMaxWidth()) {
+                Spacer(modifier = Modifier.height(16.dp))
+                drawerItems.forEach { item ->
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.padding (bottom = 30.dp))
+                    {
+                        Image(
+                            painter = painterResource(id = item.iconId),
+                            contentDescription = null,
+                            modifier = Modifier.size(24.dp)
+                        )
+                        Spacer(modifier = Modifier.width(16.dp))
                         Text(
-                            text = "088 802 6678",
-                            fontSize = 12.sp,
-                            style = MaterialTheme.typography.subtitle1,
+                            text = item.text,
+                            fontSize = 13.sp,
                             color = Color.White,
+                            fontFamily = truenorgFontFamily,
+                            modifier = Modifier
+
                         )
                     }
                 }
             }
-        )
 
-        // Content area
-        Column(modifier = Modifier.padding(16.dp)) {
-            Spacer(modifier = Modifier.height(16.dp))
-            Text(
-                text = "Drawer Item 1",
-                style = MaterialTheme.typography.body1,
+            Column(
                 modifier = Modifier
-                    .clickable {
-                        // Navigate to a destination when a drawer item is clicked
-                        navController.navigate("drawer_item_1")
-                    }
-            )
-            Text(
-                text = "Drawer Item 2",
-                style = MaterialTheme.typography.body1,
-                modifier = Modifier
-                    .padding(top = 16.dp)
-                    .clickable {
-                        // Navigate to a destination when a drawer item is clicked
-                        navController.navigate("drawer_item_2")
-                    }
-            )
+                    .offset(y = 15.dp)
+                    .fillMaxWidth(),
+
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    "Version 6.22",
+                    color = Color.Gray,
+                    fontSize = 12.sp,
+                    fontFamily = truenorgFontFamily
+                )
+                Text(
+                    "Released Date: March 11, 2024",
+                    color = Color.Gray,
+                    fontSize = 12.sp,
+                    fontFamily = truenorgFontFamily
+                )
+                Text(
+                    "Your ACLEDA mobile version is up to date",
+                    color = Color.Gray,
+                    fontSize = 12.sp,
+                    fontFamily = truenorgFontFamily
+                )
+            }
         }
     }
 }
-
-
-
 
 
 
@@ -387,11 +452,11 @@ fun favoriteBoxes(favoriteItems: List<FavoriteItem>) {
 
                         Text(
                             text = item.text,
-                            color = Color.Black,
+                            color = Color(0xFF22355d),
                             fontSize = 13.sp,
                             fontWeight = FontWeight.ExtraBold,
                             textAlign = TextAlign.Start,
-                            fontFamily = poppinsFontFamily,
+                            fontFamily = montyFontFamily,
                             style = TextStyle(
                                 lineHeight = 15.sp
                             ),
@@ -403,7 +468,7 @@ fun favoriteBoxes(favoriteItems: List<FavoriteItem>) {
 
                         Text(
                             text = item.description,
-                            color = Color(0xFF3C5278),
+                            color = Color(0xFF848796),
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Normal,
                             textAlign = TextAlign.Start,
