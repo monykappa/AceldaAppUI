@@ -143,7 +143,7 @@ fun TopNavBar(navController: NavController, scaffoldState: ScaffoldState, scope:
                 }
             }) {
                 Image(
-                    painter = painterResource(id = R.drawable.menu_icon),
+                    painter = painterResource(id = R.drawable.ic_menu1),
                     contentDescription = null,
                     modifier = Modifier.size(20.dp)
                 )

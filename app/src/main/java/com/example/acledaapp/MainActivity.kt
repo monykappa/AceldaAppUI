@@ -52,37 +52,37 @@ fun homeSceen() {
             mainScreen(navController = navController)
         }
         composable("notificaiton_page") {
-            notificationScreen()
+            notificationScreen(navController = navController)
         }
         composable("bakong") {
-            bakongScreen()
+            bakongScreen(navController = navController)
         }
         composable("payments_page") {
-            paymentScreen()
+            paymentScreen(navController = navController)
         }
         composable("mobile_top_up_page") {
-            mobileScreen()
+            mobileScreen(navController = navController)
         }
         composable("transfers_page") {
-            transferScreen()
+            transferScreen(navController = navController)
         }
         composable("pay_me_page") {
-            payMeScreen()
+            payMeScreen(navController = navController)
         }
         composable("scan_qr_page") {
-            scanQrScreen()
+            scanQrScreen(navController = navController)
         }
         composable("account_page") {
-            accountScreen()
+            accountScreen(navController = navController)
         }
         composable("deposit_page") {
-            depositScreen()
+            depositScreen(navController = navController)
         }
         composable("loan_page") {
-            loanScreen()
+            loanScreen(navController = navController)
         }
         composable("quick_cash_page") {
-            quickCashScreen()
+            quickCashScreen(navController = navController)
         }
     }
 }
