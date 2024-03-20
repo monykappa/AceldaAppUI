@@ -17,69 +17,85 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-//import com.example.acledaapp.ui.theme.AcledaAppTheme
 import androidx.compose.material.*
-import androidx.compose.material.SnackbarDefaults.backgroundColor
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Color.Companion.Blue
-import androidx.compose.ui.graphics.Color.Companion.Gray
-import androidx.compose.ui.graphics.Color.Companion.Red
-import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.acledaapp.R
-import com.example.acledaapp.models.menuRow1
-import com.example.acledaapp.models.menuRow2
-import com.example.acledaapp.models.menuRow3
 import com.example.acledaapp.models.montyFontFamily
-import com.example.acledaapp.models.poppinsFontFamily
 import com.example.acledaapp.models.truenorgFontFamily
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 
+data class AccountData(
+    val iconId: Int,
+    val phoneNumber: String,
+    val availableBalance: String,
+    val walletAccount: String,
+    val balance: String
+)
 
-
-
+val accountDataList = listOf(
+    AccountData(
+        iconId = R.drawable.ic_riel2,
+        phoneNumber = "012 345 678",
+        availableBalance = "Available balance",
+        walletAccount = "Wallet Account",
+        balance = "950.00KHR"
+    ),
+    AccountData(
+        iconId = R.drawable.ic_dollar,
+        phoneNumber = "015 123 123",
+        availableBalance = "Available balance",
+        walletAccount = "Wallet Account",
+        balance = "15.12 USD"
+    ),
+    AccountData(
+        iconId = R.drawable.ic_riel2,
+        phoneNumber = "012 321 321",
+        availableBalance = "Savings Account",
+        walletAccount = "Wallet Account",
+        balance = "950.00KHR"
+    ),
+    AccountData(
+        iconId = R.drawable.ic_dollar,
+        phoneNumber = "0001- 12312312-27",
+        availableBalance = "Savings Account",
+        walletAccount = "Wallet Account",
+        balance = "15.12 USD"
+    ),
+    AccountData(
+        iconId = R.drawable.ic_dollar,
+        phoneNumber = "0001- 12312312-27",
+        availableBalance = "Savings Account",
+        walletAccount = "Wallet Account",
+        balance = "950.00KHR"
+    ),
+    )
 
 @Preview(showSystemUi = true)
 @Composable
 fun AccountScreenPreview() {
     val navController = rememberNavController()
-
-    composeAccount(navController = navController)
+    ComposeAccount(navController = navController)
 }
 
 @Composable
-fun accountScreen(navController: NavController) {
-    composeAccount(navController = navController)
+fun AccountScreen(navController: NavController) {
+    ComposeAccount(navController = navController)
 }
 
-
-
 @Composable
-fun composeAccount(navController: NavController) {
+fun ComposeAccount(navController: NavController) {
     Surface {
         Column(
             modifier = Modifier
@@ -138,18 +154,17 @@ fun composeAccount(navController: NavController) {
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
                 Column(modifier = Modifier.weight(1f)) {
-                    ButtonRow()
-                    AccountCards()
+                    ComposeButtonRow()
+                    ComposeAccountCards()
                 }
-                BottomButton()
+                ComposeBottomButton()
             }
         }
     }
 }
 
-
 @Composable
-fun BottomButton() {
+fun ComposeBottomButton() {
     Column(
         horizontalAlignment = Alignment.End,
         modifier = Modifier.fillMaxWidth()
@@ -191,12 +206,8 @@ fun BottomButton() {
     }
 }
 
-
-
-
-//@Preview(showSystemUi = true)
 @Composable
-fun ButtonRow() {
+fun ComposeButtonRow() {
     val buttonTextStyle = TextStyle(fontSize = 12.sp)
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -257,64 +268,8 @@ fun ButtonRow() {
     }
 }
 
-
-
-
-data class AccountData(
-    val iconId: Int,
-    val phoneNumber: String,
-    val availableBalance: String,
-    val walletAccount: String,
-    val balance: String
-)
-
-
-
-val accountDataList = listOf(
-    AccountData(
-        iconId = R.drawable.ic_riel2,
-        phoneNumber = "012 345 678",
-        availableBalance = "Available balance",
-        walletAccount = "Wallet Account",
-        balance = "950.00KHR"
-    ),
-    AccountData(
-        iconId = R.drawable.ic_dollar,
-        phoneNumber = "015 123 123",
-        availableBalance = "Available balance",
-        walletAccount = "Wallet Account",
-        balance = "15.12 USD"
-    ),
-    AccountData(
-        iconId = R.drawable.ic_riel2,
-        phoneNumber = "012 321 321",
-        availableBalance = "Savings Account",
-        walletAccount = "Wallet Account",
-        balance = "950.00KHR"
-    ),
-    AccountData(
-        iconId = R.drawable.ic_dollar,
-        phoneNumber = "0001- 12312312-27",
-        availableBalance = "Savings Account",
-        walletAccount = "Wallet Account",
-        balance = "15.12 USD"
-    ),
-    AccountData(
-        iconId = R.drawable.ic_dollar,
-        phoneNumber = "0001- 12312312-27",
-        availableBalance = "Savings Account",
-        walletAccount = "Wallet Account",
-        balance = "950.00KHR"
-    ),
-
-)
-
-
-
-
-//@Preview(showSystemUi = true)
 @Composable
-fun AccountCards() {
+fun ComposeAccountCards() {
     Surface(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.background(Color.White)) {
             accountDataList.forEachIndexed { index, accountData ->
@@ -397,7 +352,7 @@ fun AccountCards() {
                             contentDescription = "Icon Image",
                             modifier = Modifier
                                 .size(20.dp)
-                                .offset(x = -15.dp, y = 10.dp),
+                                .offset(x = (-15).dp, y = 10.dp),
                         )
                     }
                 }

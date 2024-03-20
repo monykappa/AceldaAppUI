@@ -1,9 +1,7 @@
 package com.example.acledaapp.screens
-
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,7 +12,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.AppBarDefaults
 import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
@@ -42,22 +39,20 @@ import com.example.acledaapp.models.truenorgbdFontFamily
 
 @Preview(showSystemUi = true)
 @Composable
-fun loanScreenPreview(){
+fun LoanScreenPreview(){
     val navController = rememberNavController()
-    composeLoan(navController = navController)
+    ComposeLoan(navController = navController)
 }
 @Composable
-fun loanScreen(navController: NavController) {
-    composeLoan(navController = navController)
+fun LoanScreen(navController: NavController) {
+    ComposeLoan(navController = navController)
 }
-
 
 data class LoanData(
     val iconId: Int,
     val title: String,
     val description: String,
 )
-
 
 val loanDataList = listOf(
     LoanData(
@@ -83,12 +78,9 @@ val loanDataList = listOf(
     ),
 )
 
-
-
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
-//@Preview(showSystemUi = true)
 @Composable
-fun composeLoan(navController: NavController) {
+fun ComposeLoan(navController: NavController) {
     Surface {
         Scaffold(
             topBar = {
@@ -123,7 +115,7 @@ fun composeLoan(navController: NavController) {
                             modifier = Modifier.padding(end = 16.dp)
                         ) {
                             IconButton(
-                                onClick = { /* Handle logo image click */ },
+                                onClick = { },
                                 modifier = Modifier.size(40.dp),
                             ) {
                                 Image(
@@ -135,36 +127,27 @@ fun composeLoan(navController: NavController) {
                     },
                     elevation = AppBarDefaults.TopAppBarElevation
                 )
-
             }
         ) {
-            composeLoansCards()
+            ComposeLoansCards()
         }
     }
 }
 
-
-
 @Composable
-fun composeLoansCards() {
+fun ComposeLoansCards() {
     Surface(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.background(Color.White)) {
             loanDataList.forEachIndexed { index, LoanData ->
                 Row(
                     modifier = Modifier
                         .background(Color.White)
-//                        .border(
-//                            width = 0.1.dp,
-//                            color = Color.Gray,
-//                            shape = RoundedCornerShape(0.dp),
-//                        )
                         .shadow(
                             ambientColor = Color(0xFFb9b9b9),
                             elevation = (0.5.dp)
 
                 )
-
-                        .clickable { /* Handle click action */ }
+                        .clickable { }
                         .padding(horizontal = 16.dp, vertical = 8.dp)
                         .fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
@@ -199,10 +182,8 @@ fun composeLoansCards() {
                                 .offset(x = 10.dp)
                         )
                     }
-
                 }
             }
         }
     }
 }
-

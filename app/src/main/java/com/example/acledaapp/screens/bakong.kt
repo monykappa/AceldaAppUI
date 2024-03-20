@@ -3,7 +3,6 @@ package com.example.acledaapp.screens
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -25,20 +24,25 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.acledaapp.R
 import com.example.acledaapp.models.montyFontFamily
 
 
-//@Preview(showSystemUi = true)
+@Preview(showSystemUi = true)
 @Composable
-fun bakongScreen(navController: NavController){
-    bakongNavBar(navController = navController)
+fun BakongScreenPreview(){
+    val navController = rememberNavController()
+    ComposeBakongScreen(navController = navController)
+}
+@Composable
+fun BakongScreen(navController: NavController){
+    ComposeBakongScreen(navController = navController)
 }
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
-//@Preview(showSystemUi = true)
 @Composable
-fun bakongNavBar(navController: NavController) {
+fun ComposeBakongScreen(navController: NavController) {
     Surface {
         Scaffold(
             topBar = {

@@ -1,13 +1,11 @@
 package com.example.acledaapp.screens
 
-
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.painterResource
 import androidx.compose.foundation.Image
-
 import androidx.compose.foundation.layout.*
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -31,7 +29,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
-//import com.example.acledaapp.ui.theme.AcledaAppTheme
 import androidx.compose.material.*
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.text.TextStyle
@@ -42,7 +39,6 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.font.FontFamily
 import androidx.navigation.NavController
 import com.example.acledaapp.R
 import androidx.navigation.compose.rememberNavController
@@ -59,7 +55,6 @@ import com.example.acledaapp.models.truenorgFontFamily
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-val BlueBackground = Color(0xFF2c446a)
 
 fun Modifier.bottomBorderColor(color: Color, borderWidth: Dp) = drawBehind {
     drawLine(
@@ -70,11 +65,16 @@ fun Modifier.bottomBorderColor(color: Color, borderWidth: Dp) = drawBehind {
     )
 }
 
-
+@Preview(showSystemUi = true)
+@Composable
+fun MainScreenPreview(){
+    val navController = rememberNavController()
+    MainScreen(navController = navController)
+}
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun mainScreen(navController: NavController) {
+fun MainScreen(navController: NavController) {
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
 
@@ -86,25 +86,22 @@ fun mainScreen(navController: NavController) {
         drawerBackgroundColor = Color.White,
         drawerContentColor = Color.Black,
         topBar = {
-            TopNavBar(navController = navController, scaffoldState = scaffoldState, scope = scope)
+            ComposeTopNavBar(navController = navController, scaffoldState = scaffoldState, scope = scope)
         },
         content = {
             Column(modifier = Modifier.fillMaxSize()) {
-                MenuSection(menuRow1, height = 118.dp, navController = navController)
-                MenuSection(menuRow2, height = 120.dp, navController = navController)
-                MenuSection(menuRow3, height = 122.dp, navController = navController)
+                ComposeMenuSection(menuRow1, height = 118.dp, navController = navController)
+                ComposeMenuSection(menuRow2, height = 120.dp, navController = navController)
+                ComposeMenuSection(menuRow3, height = 122.dp, navController = navController)
 
-                // Favorites container boxes
-                favoriteBoxes(favoriteItems)
+                ComposeFavoriteBoxes(favoriteItems)
 
-                // Bottom background
-                BottomBackground()
+                ComposeBottomBackground()
             }
         }
     )
 }
 
-@Preview(showBackground = true)
 @Composable
 fun DrawerContent(navController: NavController = rememberNavController()) {
     Box(
@@ -113,9 +110,9 @@ fun DrawerContent(navController: NavController = rememberNavController()) {
             .background(Color(0xFF153251))
     ) {
         Column {
-            DrawerTopContent()
-            DrawerItemsContent()
-            DrawerBottomContent()
+            ComposeTopDrawer()
+            ComposeDrawerItemsContent()
+            ComposeDrawerBottomContent()
         }
     }
 }
@@ -123,7 +120,7 @@ fun DrawerContent(navController: NavController = rememberNavController()) {
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun TopNavBar(navController: NavController, scaffoldState: ScaffoldState, scope: CoroutineScope) {
+fun ComposeTopNavBar(navController: NavController, scaffoldState: ScaffoldState, scope: CoroutineScope) {
     Surface(
         modifier = Modifier
             .height(85.dp)
@@ -136,7 +133,6 @@ fun TopNavBar(navController: NavController, scaffoldState: ScaffoldState, scope:
                 .padding(top = 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            //menu icon
             IconButton(onClick = {
                 scope.launch {
                     scaffoldState.drawerState.open()
@@ -148,7 +144,6 @@ fun TopNavBar(navController: NavController, scaffoldState: ScaffoldState, scope:
                     modifier = Modifier.size(20.dp)
                 )
             }
-
             Image(
                 painter = painterResource(id = R.drawable.ic_acleda_logo),
                 contentDescription = null,
@@ -157,32 +152,31 @@ fun TopNavBar(navController: NavController, scaffoldState: ScaffoldState, scope:
 
             Spacer(modifier = Modifier.weight(1f))
 
-            IconButton(onClick = {  navController.navigate("notificaiton_page") }) {
+            IconButton(onClick = {  navController.navigate("notification_page") }) {
                 Image(
                     painter = painterResource(id = R.drawable.ic_notification),
                     contentDescription = null,
                     modifier = Modifier.size(25.dp)
                 )
             }
-
             Spacer(modifier = Modifier.width(0.dp))
-
             IconButton(onClick = {
                 navController.navigate("bakong")
             }) {
                 Image(
                     painter = painterResource(id = R.drawable.ic_bakong),
                     contentDescription = null,
-                    modifier = Modifier.size(25.dp).clip(shape = RoundedCornerShape(8.dp))
+                    modifier = Modifier
+                        .size(25.dp)
+                        .clip(shape = RoundedCornerShape(8.dp))
                 )
             }
         }
     }
 }
 
-
 @Composable
-fun DrawerTopContent() {
+fun ComposeTopDrawer() {
     TopAppBar(
         backgroundColor = Color(0xFF112032),
         modifier = Modifier.height(97.dp),
@@ -191,7 +185,6 @@ fun DrawerTopContent() {
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.offset(x= 15.dp)
             ) {
-                // Profile picture on the left
                 Image(
                     painter = painterResource(id = R.drawable.pfp),
                     contentDescription = null,
@@ -200,10 +193,7 @@ fun DrawerTopContent() {
                         .clip(RoundedCornerShape(50.dp)),
                     contentScale = ContentScale.Crop
                 )
-
                 Spacer(modifier = Modifier.width(16.dp))
-
-                // Name and phone number on the right
                 Column {
                     Text(
                         text = "Ouddommony Kim",
@@ -227,15 +217,17 @@ fun DrawerTopContent() {
 }
 
 @Composable
-fun DrawerItemsContent() {
-    Column(modifier = Modifier.padding(start = 6.dp).fillMaxWidth().offset(y = -15.dp)) {
+fun ComposeDrawerItemsContent() {
+    Column(modifier = Modifier
+        .padding(start = 6.dp)
+        .fillMaxWidth()
+        .offset(y = (-15).dp)) {
         Spacer(modifier = Modifier.height(16.dp))
         drawerItems.forEach { item ->
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-//                    .padding(top = 5.dp)
-                    .clickable { /*Handle click here */ }
+                    .clickable { }
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -263,7 +255,7 @@ fun DrawerItemsContent() {
 
 
 @Composable
-fun DrawerBottomContent() {
+fun ComposeDrawerBottomContent() {
     Column(
         modifier = Modifier
             .offset(y = 35.dp)
@@ -292,10 +284,10 @@ fun DrawerBottomContent() {
 }
 
 @Composable
-fun MenuSection(
+fun ComposeMenuSection(
     menuItems: List<MenuItems>,
     height: Dp,
-    navController: NavController // Add NavController parameter
+    navController: NavController
 ) {
     Surface(
         modifier = Modifier
@@ -316,7 +308,6 @@ fun MenuSection(
                         .padding(top = 20.dp),
                 ) {
                     IconButton(onClick = {
-                        // Navigate to the destination corresponding to the clicked item
                         navController.navigate(item.destination)
                     }) {
                         Column(
@@ -344,9 +335,8 @@ fun MenuSection(
     }
 }
 
-
 @Composable
-fun favoriteBoxes(favoriteItems: List<FavoriteItem>) {
+fun ComposeFavoriteBoxes(favoriteItems: List<FavoriteItem>) {
     LazyRow(
         modifier = Modifier
             .height(180.dp)
@@ -355,7 +345,6 @@ fun favoriteBoxes(favoriteItems: List<FavoriteItem>) {
         items(favoriteItems) { item ->
             Box(
                 modifier = Modifier
-
                     .width(150.dp)
                     .padding(10.dp),
             ) {
@@ -365,7 +354,9 @@ fun favoriteBoxes(favoriteItems: List<FavoriteItem>) {
                     shape = RoundedCornerShape(20.dp)
                 ) {
                     Column(
-                        modifier = Modifier.fillMaxHeight().clickable { /* Handle click here */ },
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .clickable {},
                         verticalArrangement = Arrangement.Top,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
@@ -415,11 +406,12 @@ fun favoriteBoxes(favoriteItems: List<FavoriteItem>) {
     }
 }
 
-
 @Composable
-fun BottomBackground() {
+fun ComposeBottomBackground() {
     Surface(
-        modifier = Modifier.fillMaxSize().offset(y = 0.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .offset(y = 0.dp),
         color = Color(0xFF21324E)
     ) {
         Image(
@@ -429,9 +421,3 @@ fun BottomBackground() {
         )
     }
 }
-
-
-
-
-
-

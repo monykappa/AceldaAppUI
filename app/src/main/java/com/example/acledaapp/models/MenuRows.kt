@@ -2,8 +2,6 @@ package com.example.acledaapp.models
 
 import com.example.acledaapp.R
 
-
-
 data class MenuItems(
     val imageResourceId: Int,
     val text: String,

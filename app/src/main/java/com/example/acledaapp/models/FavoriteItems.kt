@@ -2,16 +2,12 @@ package com.example.acledaapp.models
 
 import com.example.acledaapp.R
 
-
 data class FavoriteItem(
     val imageResourceId: Int,
     val text: String,
     val description: String,
     val contentDescription: String
 )
-
-
-
 
 val favoriteItems = listOf(
     FavoriteItem(

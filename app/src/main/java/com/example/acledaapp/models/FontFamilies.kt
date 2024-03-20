@@ -4,12 +4,6 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import com.example.acledaapp.R
 
-val quicksandFontFamily = FontFamily(
-    Font(R.font.font_quicksand),
-)
-val poppinsFontFamily = FontFamily(
-    Font(R.font.font_poppins),
-)
 
 val truenorgFontFamily = FontFamily(
     Font(R.font.font_truenorg),

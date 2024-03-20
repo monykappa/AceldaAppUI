@@ -1,22 +1,17 @@
 package com.example.acledaapp.screens
-
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.AppBarDefaults
 import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
@@ -42,24 +37,46 @@ import com.example.acledaapp.models.truenorgFontFamily
 import com.example.acledaapp.models.truenorgbdFontFamily
 
 
+data class DepositData(
+    val iconId: Int,
+    val title: String,
+    val description: String,
+)
+
+val depositDataList = listOf(
+    DepositData(
+        iconId = R.drawable.ic_stock_up,
+        title = "Hi-Growth term deposit",
+        description = "Maturity date interest settlement",
+    ),
+    DepositData(
+        iconId = R.drawable.ic_income,
+        title = "Hi-Income term deposit",
+        description = "Monthly interest settlement",
+
+        ),
+    DepositData(
+        iconId = R.drawable.ic_clock,
+        title = "Long Term deposit",
+        description = "Quarterly interest settlement",
+    ),
+)
+
 @Preview(showSystemUi = true)
 @Composable
-fun depositScreenPreview(){
+fun DepositScreenPreview(){
     val navController = rememberNavController()
-    composeDeposit(navController = navController)
+    ComposeDeposit(navController = navController)
 }
 
 @Composable
-fun depositScreen(navController: NavController) {
-    composeDeposit(navController = navController)
+fun DepositScreen(navController: NavController) {
+    ComposeDeposit(navController = navController)
 }
-
-
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
-//@Preview(showSystemUi = true)
 @Composable
-fun composeDeposit(navController: NavController) {
+fun ComposeDeposit(navController: NavController) {
     Surface {
         Scaffold(
             topBar = {
@@ -109,41 +126,13 @@ fun composeDeposit(navController: NavController) {
 
             }
         ) {
-            composeDepositsCards()
+            ComposeDepositsCards()
         }
     }
 }
 
-
-data class DepositData(
-    val iconId: Int,
-    val title: String,
-    val description: String,
-)
-
-
-
-val depositDataList = listOf(
-    DepositData(
-        iconId = R.drawable.ic_stock_up,
-        title = "Hi-Growth term deposit",
-        description = "Maturity date interest settlement",
-    ),
-    DepositData(
-        iconId = R.drawable.ic_income,
-        title = "Hi-Income term deposit",
-        description = "Monthly interest settlement",
-
-    ),
-    DepositData(
-        iconId = R.drawable.ic_clock,
-        title = "Long Term deposit",
-        description = "Quarterly interest settlement",
-    ),
-    )
-
 @Composable
-fun composeDepositsCards() {
+fun ComposeDepositsCards() {
     Surface(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.background(Color.White)) {
             depositDataList.forEachIndexed { index, depositData ->
@@ -196,6 +185,3 @@ fun composeDepositsCards() {
         }
     }
 }
-
-
-

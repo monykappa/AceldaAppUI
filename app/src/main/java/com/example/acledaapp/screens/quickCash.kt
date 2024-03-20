@@ -8,18 +8,14 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.sp
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicText
 import androidx.compose.material.AppBarDefaults
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
@@ -32,43 +28,36 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Gray
-import androidx.compose.ui.graphics.Color.Companion.Red
-import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontSynthesis.Companion.Weight
-import androidx.compose.ui.text.font.FontVariation.weight
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.acledaapp.R
 import com.example.acledaapp.models.montyFontFamily
-import com.example.acledaapp.models.truenorgFontFamily
 
 
 @Preview(showSystemUi = true)
 @Composable
-fun quickCashPreview(){
+fun QuickCashScreenPreview(){
     val navController = rememberNavController()
-    composeQuickCash(navController = navController)
+    ComposeQuickCash(navController = navController)
 }
 
 @Composable
-fun quickCashScreen(navController: NavController) {
-    composeQuickCash(navController = navController)
+fun QuickCashScreen(navController: NavController) {
+    ComposeQuickCash(navController = navController)
 }
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun composeQuickCash(navController: NavController) {
+fun ComposeQuickCash(navController: NavController) {
     Surface {
         Scaffold(
             topBar = {
@@ -103,7 +92,7 @@ fun composeQuickCash(navController: NavController) {
                             modifier = Modifier.padding(end = 16.dp)
                         ) {
                             IconButton(
-                                onClick = { /* Handle logo image click */ },
+                                onClick = { },
                                 modifier = Modifier.size(40.dp),
                             ) {
                                 Image(
@@ -119,17 +108,17 @@ fun composeQuickCash(navController: NavController) {
             }
         ) {
             Column (modifier = Modifier.background(Color(0xFFe3e3e3))){
-                composeQuickCashImage()
-                composeInputQuickCash()
+                ComposeQuickCashImage()
+                ComposeInputQuickCash()
                 Spacer(modifier = Modifier.weight(1f))
-                composeGenerateButton()
+                ComposeGenerateButton()
             }
         }
     }
 }
 
 @Composable
-fun composeQuickCashImage() {
+fun ComposeQuickCashImage() {
     Surface(
         modifier = Modifier
             .fillMaxWidth()
@@ -174,7 +163,7 @@ fun composeQuickCashImage() {
 }
 
 @Composable
-fun composeInputQuickCash() {
+fun ComposeInputQuickCash() {
     Surface(
         color = Color(0xFFe3e3e3),
         modifier = Modifier
@@ -199,7 +188,6 @@ fun composeInputQuickCash() {
                         .fillMaxWidth()
                         .height(40.dp)
                         .background(Color.White)
-//                        .clip(RoundedCornerShape(2.dp))
                         .border(0.5.dp, Gray),
 
 
@@ -277,7 +265,7 @@ fun composeInputQuickCash() {
                             .padding(horizontal = 8.dp)
                     )
                 }
-                Spacer(modifier = Modifier.height(16.dp)) // Add space between the second row and the new Row
+                Spacer(modifier = Modifier.height(16.dp))
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
@@ -299,7 +287,7 @@ fun composeInputQuickCash() {
                     Spacer(modifier = Modifier.weight(1f))
                     Switch(
                         checked = false,
-                        onCheckedChange = { /* Handle state change here */ },
+                        onCheckedChange = { },
                         colors = SwitchDefaults.colors(
                             checkedThumbColor = Color.White,
                             uncheckedThumbColor = Color(0xFF173a67),
@@ -312,9 +300,9 @@ fun composeInputQuickCash() {
 }
 
 @Composable
-fun composeGenerateButton() {
+fun ComposeGenerateButton() {
     Button(
-        onClick = { /* Handle button click */ },
+        onClick = { },
         modifier = Modifier
             .fillMaxWidth()
             .height(50.dp),
@@ -332,6 +320,3 @@ fun composeGenerateButton() {
         )
     }
 }
-
-
-

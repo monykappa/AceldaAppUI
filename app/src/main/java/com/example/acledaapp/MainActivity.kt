@@ -9,18 +9,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.acledaapp.screens.accountScreen
-import com.example.acledaapp.screens.bakongScreen
-import com.example.acledaapp.screens.depositScreen
-import com.example.acledaapp.screens.loanScreen
-import com.example.acledaapp.screens.mainScreen
-import com.example.acledaapp.screens.mobileScreen
+import com.example.acledaapp.screens.AccountScreen
+import com.example.acledaapp.screens.BakongScreen
+import com.example.acledaapp.screens.DepositScreen
+import com.example.acledaapp.screens.LoanScreen
+import com.example.acledaapp.screens.MainScreen
+import com.example.acledaapp.screens.MobileScreen
+import com.example.acledaapp.screens.PayMeScreen
+import com.example.acledaapp.screens.PaymentScreen
+import com.example.acledaapp.screens.QuickCashScreen
+import com.example.acledaapp.screens.ScanQrScreen
 import com.example.acledaapp.screens.notificationScreen
-import com.example.acledaapp.screens.payMeScreen
-import com.example.acledaapp.screens.paymentScreen
-import com.example.acledaapp.screens.quickCashScreen
-import com.example.acledaapp.screens.scanQrScreen
-import com.example.acledaapp.screens.transferScreen
+import com.example.acledaapp.screens.TransferScreen
 
 
 class MainActivity : ComponentActivity() {
@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AcledaAppTheme {
-                homeSceen()
+                HomeScreen()
                 }
             }
         }
@@ -37,77 +37,54 @@ class MainActivity : ComponentActivity() {
 
 @Preview(showBackground = true)
 @Composable
-fun app() {
-    homeSceen()
+fun App() {
+    HomeScreen()
 }
 
 
 @Preview(showBackground = true)
 @Composable
-fun homeSceen() {
+fun HomeScreen() {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = "home") {
         composable("home") {
-            mainScreen(navController = navController)
+            MainScreen(navController = navController)
         }
-        composable("notificaiton_page") {
+        composable("notification_page") {
             notificationScreen(navController = navController)
         }
         composable("bakong") {
-            bakongScreen(navController = navController)
+            BakongScreen(navController = navController)
         }
         composable("payments_page") {
-            paymentScreen(navController = navController)
+            PaymentScreen(navController = navController)
         }
         composable("mobile_top_up_page") {
-            mobileScreen(navController = navController)
+            MobileScreen(navController = navController)
         }
         composable("transfers_page") {
-            transferScreen(navController = navController)
+            TransferScreen(navController = navController)
         }
         composable("pay_me_page") {
-            payMeScreen(navController = navController)
+            PayMeScreen(navController = navController)
         }
         composable("scan_qr_page") {
-            scanQrScreen(navController = navController)
+            ScanQrScreen(navController = navController)
         }
         composable("account_page") {
-            accountScreen(navController = navController)
+            AccountScreen(navController = navController)
         }
         composable("deposit_page") {
-            depositScreen(navController = navController)
+            DepositScreen(navController = navController)
         }
         composable("loan_page") {
-            loanScreen(navController = navController)
+            LoanScreen(navController = navController)
         }
         composable("quick_cash_page") {
-            quickCashScreen(navController = navController)
+            QuickCashScreen(navController = navController)
         }
     }
 }
-
-
-
-
-//@Preview(showBackground = true)
-//@Composable
-//fun app() {
-//            composeNavScreen()
-//}
-//
-//@Composable
-//fun composeNavScreen() {
-//    val navController = rememberNavController()
-//
-//    NavHost(navController = navController, startDestination = "home") {
-//        composable("home") {
-//            mainScreen(navController = navController)
-//        }
-//        composable("detail") {
-//            detailScreen()
-//        }
-//    }
-//}
 
 

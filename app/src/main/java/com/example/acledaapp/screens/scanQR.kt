@@ -3,7 +3,6 @@ package com.example.acledaapp.screens
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -27,18 +26,24 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.acledaapp.R
 import com.example.acledaapp.models.montyFontFamily
+import androidx.navigation.compose.rememberNavController
 
 
+@Preview(showSystemUi = true)
 @Composable
-fun scanQrScreen(navController: NavController) {
-    scanQrNavBar(navController = navController)
+fun ScanQrScreenPreview(){
+    val navController = rememberNavController()
+    ComposeScanQr(navController = navController)
+}
+@Composable
+fun ScanQrScreen(navController: NavController) {
+    ComposeScanQr(navController = navController)
 }
 
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
-//@Preview(showSystemUi = true)
 @Composable
-fun scanQrNavBar(navController: NavController) {
+fun ComposeScanQr(navController: NavController) {
     Surface {
         Scaffold(
             topBar = {
@@ -73,7 +78,7 @@ fun scanQrNavBar(navController: NavController) {
                             modifier = Modifier.padding(end = 16.dp)
                         ) {
                             IconButton(
-                                onClick = { /* Handle logo image click */ },
+                                onClick = { },
                                 modifier = Modifier.size(40.dp),
                             ) {
                                 Image(
@@ -88,7 +93,43 @@ fun scanQrNavBar(navController: NavController) {
 
             }
         ) {
-            // Content of the scaffold
+//            composeOpenCamera()
         }
     }
 }
+
+
+//@Composable
+//fun composeOpenCamera() {
+//    val context = LocalContext.current
+//    val cameraPermissionLauncher = rememberLauncherForActivityResult(
+//        contract = ActivityResultContracts.RequestPermission(),
+//        onResult = { isGranted: Boolean ->
+//            if (isGranted) {
+//                val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+//                context.startActivity(intent)
+//            } else {
+//                // Handle permission denial here
+//            }
+//        }
+//    )
+//
+//    Button(onClick = {
+//        when (PackageManager.PERMISSION_GRANTED) {
+//            ContextCompat.checkSelfPermission(
+//                context,
+//                Manifest.permission.CAMERA
+//
+//            ) -> {
+//                val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+//                context.startActivity(intent)
+//            }
+//            else -> {
+//                cameraPermissionLauncher.launch(Manifest.permission.CAMERA
+//                )
+//            }
+//        }
+//    }) {
+//        Text("Open Camera")
+//    }
+//}
