@@ -17,3 +17,7 @@ val truenorgFontFamily = FontFamily(
 val montyFontFamily = FontFamily(
     Font(R.font.font_monty)
 )
+
+val truenorgbdFontFamily = FontFamily(
+    Font(R.font.font_truenobd)
+)

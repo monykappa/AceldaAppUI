@@ -68,18 +68,18 @@ import kotlinx.coroutines.launch
 fun AccountScreenPreview() {
     val navController = rememberNavController()
 
-    accountScreen(navController = navController)
+    composeAccount(navController = navController)
 }
 
 @Composable
 fun accountScreen(navController: NavController) {
-    accountNavBar(navController = navController)
+    composeAccount(navController = navController)
 }
 
 
 
 @Composable
-fun accountNavBar(navController: NavController) {
+fun composeAccount(navController: NavController) {
     Surface {
         Column(
             modifier = Modifier
@@ -273,35 +273,35 @@ data class AccountData(
 val accountDataList = listOf(
     AccountData(
         iconId = R.drawable.ic_riel2,
-        phoneNumber = "012 xxx xxx",
+        phoneNumber = "012 345 678",
         availableBalance = "Available balance",
         walletAccount = "Wallet Account",
         balance = "950.00KHR"
     ),
     AccountData(
         iconId = R.drawable.ic_dollar,
-        phoneNumber = "015 xxx xxx",
+        phoneNumber = "015 123 123",
         availableBalance = "Available balance",
         walletAccount = "Wallet Account",
         balance = "15.12 USD"
     ),
     AccountData(
         iconId = R.drawable.ic_riel2,
-        phoneNumber = "012 xxx xxx",
+        phoneNumber = "012 321 321",
         availableBalance = "Savings Account",
         walletAccount = "Wallet Account",
         balance = "950.00KHR"
     ),
     AccountData(
         iconId = R.drawable.ic_dollar,
-        phoneNumber = "0001- xxxxxxxx-27",
+        phoneNumber = "0001- 12312312-27",
         availableBalance = "Savings Account",
         walletAccount = "Wallet Account",
         balance = "15.12 USD"
     ),
     AccountData(
         iconId = R.drawable.ic_dollar,
-        phoneNumber = "0001- xxxxxxxx-27",
+        phoneNumber = "0001- 12312312-27",
         availableBalance = "Savings Account",
         walletAccount = "Wallet Account",
         balance = "950.00KHR"
@@ -337,13 +337,13 @@ fun AccountCards() {
                         // Phone number
                         Text(
                             text = accountData.phoneNumber,
-                            fontSize = 14.sp,
-                            color = Color(0xFF101b2d),
+                            fontSize = 15.sp,
+                            color = Color(0xFF1d3153),
                             fontFamily = truenorgFontFamily,
                             fontWeight = FontWeight.Bold,
                             modifier = Modifier
                                 .padding(top = 15.dp)
-                                .offset(x = 10.dp),
+                                .offset(x = 15.dp),
                         )
                         // Available balance
                         Text(
@@ -354,7 +354,7 @@ fun AccountCards() {
                             color = Color(0xFF727272),
                             modifier = Modifier
                                 .padding(top = 5.dp, bottom = 15.dp)
-                                .offset(x = 10.dp)
+                                .offset(x = 15.dp)
                         )
                     }
                     Spacer(modifier = Modifier.weight(1f)) // Expandable space
@@ -379,7 +379,7 @@ fun AccountCards() {
                             fontSize = 14.sp,
                             fontFamily = truenorgFontFamily,
                             fontWeight = FontWeight.Bold,
-                            color = Color(0xFFcea530),
+                            color = Color(0xFFc9a74a),
                             modifier = Modifier
                                 .padding(top = 5.dp)
                                 .width(130.dp)
