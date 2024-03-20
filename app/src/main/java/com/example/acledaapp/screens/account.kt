@@ -18,23 +18,31 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 //import com.example.acledaapp.ui.theme.AcledaAppTheme
 import androidx.compose.material.*
+import androidx.compose.material.SnackbarDefaults.backgroundColor
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color.Companion.Blue
+import androidx.compose.ui.graphics.Color.Companion.Gray
 import androidx.compose.ui.graphics.Color.Companion.Red
+import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -101,7 +109,7 @@ fun accountNavBar(navController: NavController) {
                 backgroundColor = Color(0xFF173a67),
                 navigationIcon = {
                     IconButton(onClick = { navController.navigate("home") }) {
-                            Image(
+                        Image(
                             painter = painterResource(id = R.drawable.ic_back),
                             contentDescription = "Back"
                         )
@@ -113,6 +121,7 @@ fun accountNavBar(navController: NavController) {
                     ) {
                         IconButton(
                             onClick = { /* Handle logo image click */ },
+                            modifier = Modifier.size(40.dp),
                         ) {
                             Image(
                                 painter = painterResource(id = R.drawable.ac_logo),
@@ -124,11 +133,66 @@ fun accountNavBar(navController: NavController) {
                 elevation = AppBarDefaults.TopAppBarElevation
             )
 
-            ButtonRow()
-            AccountCards()
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.SpaceBetween
+            ) {
+                Column(modifier = Modifier.weight(1f)) {
+                    ButtonRow()
+                    AccountCards()
+                }
+                BottomButton()
+            }
         }
     }
 }
+
+
+@Composable
+fun BottomButton() {
+    Column(
+        horizontalAlignment = Alignment.End,
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Surface(
+            shape = RoundedCornerShape(50.dp),
+            color = Color(0xFF15334e),
+            modifier = Modifier
+                .padding(bottom = 20.dp, end = 20.dp)
+                .align(Alignment.End)
+                .clickable{}
+
+           ) {
+            Box(
+                modifier = Modifier.padding(8.dp)
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_add),
+                    modifier = Modifier.size(20.dp),
+                    contentDescription = "Icon"
+                )
+            }
+        }
+        Button(
+            onClick = { /* Handle button click */ },
+            modifier = Modifier.fillMaxWidth().height(50.dp),
+            shape = RoundedCornerShape(0.dp),
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF23324f)),
+        ) {
+            Text(
+                text = "TRANSACTION HISTORY",
+                textAlign = TextAlign.Center,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.fillMaxWidth(),
+                color = Color(0XFFcea530),
+                fontFamily = montyFontFamily,
+            )
+        }
+    }
+}
+
+
+
 
 //@Preview(showSystemUi = true)
 @Composable
@@ -194,6 +258,8 @@ fun ButtonRow() {
 }
 
 
+
+
 data class AccountData(
     val iconId: Int,
     val phoneNumber: String,
@@ -254,19 +320,16 @@ fun AccountCards() {
             accountDataList.forEachIndexed { index, accountData ->
                 Row(
                     modifier = Modifier
+                        .bottomBorderColor(color = Color.Gray, borderWidth = 0.5.dp)
+                        .clickable {}
 
-                        .drawWithContent {
-                            drawContent()
-                            drawRect(
-                                color = Color.Black.copy(alpha = 0.1f),
-                                topLeft = Offset(0f, size.height),
-                                size = Size(size.width, 1.dp.toPx()) // Adjust the shadow height as needed
-                            )
-                        }
+
                 )  {
                     Image(
                         painter = painterResource(id = accountData.iconId),
-                        modifier = Modifier.offset(y = 25.dp, x = 10.dp).size(30.dp),
+                        modifier = Modifier
+                            .offset(y = 25.dp, x = 10.dp)
+                            .size(30.dp),
                         contentDescription = "Icon Image"
                     )
                     Spacer(modifier = Modifier.width(8.dp))
@@ -274,19 +337,24 @@ fun AccountCards() {
                         // Phone number
                         Text(
                             text = accountData.phoneNumber,
-                            fontSize = 16.sp,
-                            color = Color.Black,
+                            fontSize = 14.sp,
+                            color = Color(0xFF101b2d),
                             fontFamily = truenorgFontFamily,
                             fontWeight = FontWeight.Bold,
-                            modifier = Modifier.padding(top = 10.dp).offset(x = 10.dp),
+                            modifier = Modifier
+                                .padding(top = 15.dp)
+                                .offset(x = 10.dp),
                         )
                         // Available balance
                         Text(
                             text = accountData.availableBalance,
                             fontSize = 14.sp,
                             fontWeight = FontWeight.Bold,
+                            fontFamily = truenorgFontFamily,
                             color = Color(0xFF727272),
-                            modifier = Modifier.padding(top = 5.dp, bottom = 10.dp).offset(x = 10.dp)
+                            modifier = Modifier
+                                .padding(top = 5.dp, bottom = 15.dp)
+                                .offset(x = 10.dp)
                         )
                     }
                     Spacer(modifier = Modifier.weight(1f)) // Expandable space
@@ -294,20 +362,27 @@ fun AccountCards() {
                         // Wallet
                         Text(
                             text = accountData.walletAccount,
-                            fontSize = 16.sp,
+                            textAlign = TextAlign.End,
+                            fontSize = 14.sp,
                             fontWeight = FontWeight.Bold,
+                            fontFamily = truenorgFontFamily,
                             color = Color(0xFF727272),
-                            modifier = Modifier.padding(top = 10.dp),
+                            modifier = Modifier
+                                .padding(top = 15.dp)
+                                .width(130.dp),
                         )
                         // Balance
                         val balanceColor = if (index % 2 == 0) Color(0xFFbd9e40) else Color(0xFF243548)
                         Text(
                             text = accountData.balance,
-                            fontSize = 16.sp,
+                            textAlign = TextAlign.End,
+                            fontSize = 14.sp,
                             fontFamily = truenorgFontFamily,
                             fontWeight = FontWeight.Bold,
-                            color = balanceColor,
-                            modifier = Modifier.padding(top = 5.dp)
+                            color = Color(0xFFcea530),
+                            modifier = Modifier
+                                .padding(top = 5.dp)
+                                .width(130.dp)
                         )
                     }
                     Column(
@@ -316,7 +391,9 @@ fun AccountCards() {
                         Image(
                             painter = painterResource(id = R.drawable.ic_dots),
                             contentDescription = "Icon Image",
-                            modifier = Modifier.size(20.dp).offset(x = -15.dp, y = 10.dp),
+                            modifier = Modifier
+                                .size(20.dp)
+                                .offset(x = -15.dp, y = 10.dp),
                         )
                     }
                 }
@@ -324,84 +401,3 @@ fun AccountCards() {
         }
     }
 }
-
-
-
-
-
-
-
-//@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
-//@Preview(showSystemUi = true)
-//@Composable
-//fun accountScreen() {
-//    val accountList = listOf(
-//        Account(number = "015 XXX XXX", name = "Wallet Account", balance = 950.00, currency = "KHR"),
-//        Account(number = "015 XXX XXX", name = "Wallet Account", balance = 260.28, currency = "USD"),
-//        Account(number = "0001-XXXXXXXX-27", name = "Savings Account", balance = 800.00, currency = "KHR"),
-//        Account(number = "0001-XXXXXXXX-37", name = "Credit Card Account", balance = 0.00, currency = "USD"),
-//        Account(number = "0001-XXXXXXXX-47", name = "Credit Card Account", balance = 4160.73, currency = "USD"),
-//        Account(number = "0001-XXXXXXXX-14", name = "Payroll Account", balance = 43501.66, workingBalance = 10501.66, currency = "USD"),
-//    )
-//
-//
-//                LazyColumn(){
-//                    items(accountList) { account ->
-//                        AccountCard(account = account)
-//                    }
-//                }
-//
-//}
-//
-//@Composable
-//fun AccountCard(account: Account) {
-//    Card(
-////        elevation = 40.dp,
-//    ) {
-//        Column {
-//            Row(
-//                modifier = Modifier.fillMaxWidth()
-//            ) {
-//                Text(text = account.number, style = MaterialTheme.typography.body1)
-//                Spacer(modifier = Modifier.weight(1f))
-//                Text(text = account.name, style = MaterialTheme.typography.body1)
-//            }
-//            Row(
-//                modifier = Modifier.fillMaxWidth()
-//            ) {
-//                Text(
-//                    text = "Available balance",
-//                    style = MaterialTheme.typography.caption
-//                )
-//                Spacer(modifier = Modifier.weight(1f))
-//                Text(
-//                    text = "${account.balance} ${account.currency}",
-//                    style = MaterialTheme.typography.body1
-//                )
-//            }
-//            if (account.workingBalance != null) {
-//                Row(
-//                    modifier = Modifier.fillMaxWidth()
-//                ) {
-//                    Text(
-//                        text = "Working balance",
-//                        style = MaterialTheme.typography.caption
-//                    )
-//                    Spacer(modifier = Modifier.weight(1f))
-//                    Text(
-//                        text = "${account.workingBalance} ${account.currency}",
-//                        style = MaterialTheme.typography.body1
-//                    )
-//                }
-//            }
-//        }
-//    }
-//}
-//
-//data class Account(
-//    val number: String,
-//    val name: String,
-//    val balance: Double,
-//    val currency: String,
-//    val workingBalance: Double? = null
-//)
