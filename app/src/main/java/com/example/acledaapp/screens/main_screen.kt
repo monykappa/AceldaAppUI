@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,6 +23,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
@@ -37,6 +39,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color.Companion.Gray
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavController
@@ -50,7 +53,6 @@ import com.example.acledaapp.models.menuRow1
 import com.example.acledaapp.models.menuRow2
 import com.example.acledaapp.models.menuRow3
 import com.example.acledaapp.models.montyFontFamily
-import com.example.acledaapp.models.poppinsFontFamily
 import com.example.acledaapp.models.truenorgFontFamily
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -64,6 +66,16 @@ fun Modifier.bottomBorderColor(color: Color, borderWidth: Dp) = drawBehind {
         strokeWidth = borderWidth.toPx()
     )
 }
+
+fun Modifier.rightBorderColor(color: Color, borderWidth: Dp) = drawBehind {
+    drawLine(
+        color = color,
+        start = Offset(size.width, 0f),
+        end = Offset(size.width, size.height),
+        strokeWidth = borderWidth.toPx()
+    )
+}
+
 
 @Preview(showSystemUi = true)
 @Composable
@@ -291,27 +303,31 @@ fun ComposeMenuSection(
 ) {
     Surface(
         modifier = Modifier
-            .fillMaxWidth()
-            .height(height),
+            .fillMaxWidth(),
         color = Color(0xFF21324E)
     ) {
         Row(
             modifier = Modifier
                 .background(color = Color(0xFF21324E))
-                .bottomBorderColor(color = Color(0xFF476CB0), borderWidth = 1.dp)
+                .fillMaxWidth()
+//                .height(height)
+                .padding(0.dp)
+//                .border(1.dp, Color.White),
         ) {
             menuItems.forEach { item ->
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier
                         .weight(1f)
-                        .padding(top = 20.dp),
+                        .fillMaxWidth()
+                        .height(height),
+
                 ) {
-                    IconButton(onClick = {
-                        navController.navigate(item.destination)
-                    }) {
+                    IconButton(onClick = {navController.navigate(item.destination)},
+                            modifier = Modifier.fillMaxWidth().fillMaxHeight().bottomBorderColor(Color(0xFF345883),1.dp,).rightBorderColor(Color(0xFF345883), 1.dp))  {
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
+
                         ) {
                             Image(
                                 painter = painterResource(id = item.imageResourceId),
@@ -329,7 +345,6 @@ fun ComposeMenuSection(
                         }
                     }
                 }
-                Spacer(modifier = Modifier.width(16.dp))
             }
         }
     }
@@ -391,7 +406,7 @@ fun ComposeFavoriteBoxes(favoriteItems: List<FavoriteItem>) {
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Normal,
                             textAlign = TextAlign.Start,
-                            fontFamily = poppinsFontFamily,
+                            fontFamily = truenorgFontFamily,
                             style = TextStyle(
                                 lineHeight = 15.sp
                             ),

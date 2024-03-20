@@ -107,7 +107,7 @@ fun ComposeQuickCash(navController: NavController) {
 
             }
         ) {
-            Column (modifier = Modifier.background(Color(0xFFe3e3e3))){
+            Column (modifier = Modifier.background(Color(0xFFececec))){
                 ComposeQuickCashImage()
                 ComposeInputQuickCash()
                 Spacer(modifier = Modifier.weight(1f))
@@ -165,7 +165,7 @@ fun ComposeQuickCashImage() {
 @Composable
 fun ComposeInputQuickCash() {
     Surface(
-        color = Color(0xFFe3e3e3),
+        color = Color(0xFFececec),
         modifier = Modifier
             .fillMaxWidth()
 
@@ -179,7 +179,7 @@ fun ComposeInputQuickCash() {
                 .background(Color.White)
         ) {
             Column(
-                modifier = Modifier.fillMaxWidth().background(Color(0xFFe3e3e3)).padding(start = 10.dp, end =10.dp)
+                modifier = Modifier.fillMaxWidth().background(Color(0xFFececec)).padding(start = 10.dp, end =10.dp)
             )
             {
                 Spacer(modifier = Modifier.height(56.dp))
