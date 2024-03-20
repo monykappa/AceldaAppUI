@@ -26,6 +26,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -149,10 +150,10 @@ fun composeDepositsCards() {
                 Row(
                     modifier = Modifier
                         .background(Color.White)
-                        .border(
-                            width = 0.1.dp,
-                            color = Color.Gray,
-                            shape = RoundedCornerShape(0.dp),
+                        .shadow(
+                            ambientColor = Color(0xFFb9b9b9),
+                            elevation = (0.5.dp)
+
                         )
                         .clickable { /* Handle click action */ }
                         .padding(horizontal = 16.dp, vertical = 8.dp)

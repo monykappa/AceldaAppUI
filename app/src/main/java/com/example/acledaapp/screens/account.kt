@@ -320,7 +320,11 @@ fun AccountCards() {
             accountDataList.forEachIndexed { index, accountData ->
                 Row(
                     modifier = Modifier
-                        .bottomBorderColor(color = Color.Gray, borderWidth = 0.5.dp)
+                        .shadow(
+                            ambientColor = Color(0xFFb9b9b9),
+                            elevation = (0.5.dp)
+
+                        )
                         .clickable {}
 
 
