@@ -37,50 +37,52 @@ import com.example.acledaapp.models.montyFontFamily
 import com.example.acledaapp.models.truenorgFontFamily
 
 data class AccountData(
-    val iconId: Int,
+    val imageResourceId: Int,
     val phoneNumber: String,
     val availableBalance: String,
     val walletAccount: String,
     val balance: String
 )
 
-val accountDataList = listOf(
+val accountDataList = mutableListOf(
     AccountData(
-        iconId = R.drawable.ic_riel2,
-        phoneNumber = "012 345 678",
-        availableBalance = "Available balance",
-        walletAccount = "Wallet Account",
-        balance = "950.00KHR"
+        R.drawable.ic_riel2,
+        "012 345 678",
+        "Available balance",
+        "Wallet Account",
+        "950.00KHR"
     ),
     AccountData(
-        iconId = R.drawable.ic_dollar,
-        phoneNumber = "015 123 123",
-        availableBalance = "Available balance",
-        walletAccount = "Wallet Account",
-        balance = "15.12 USD"
+        R.drawable.ic_dollar,
+        "015 123 123",
+        "Available balance",
+        "Wallet Account",
+        "15.12 USD"
     ),
     AccountData(
-        iconId = R.drawable.ic_riel2,
-        phoneNumber = "012 321 321",
-        availableBalance = "Savings Account",
-        walletAccount = "Wallet Account",
-        balance = "950.00KHR"
+        R.drawable.ic_riel2,
+        "012 321 321",
+        "Savings Account",
+        "Wallet Account",
+        "950.00KHR"
     ),
     AccountData(
-        iconId = R.drawable.ic_dollar,
-        phoneNumber = "0001- 12312312-27",
-        availableBalance = "Savings Account",
-        walletAccount = "Wallet Account",
-        balance = "15.12 USD"
+        R.drawable.ic_dollar,
+        "0001- 12312312-27",
+        "Savings Account",
+        "Wallet Account",
+        "15.12 USD"
     ),
     AccountData(
-        iconId = R.drawable.ic_dollar,
-        phoneNumber = "0001- 12312312-27",
-        availableBalance = "Savings Account",
-        walletAccount = "Wallet Account",
-        balance = "950.00KHR"
-    ),
+        R.drawable.ic_dollar,
+        "0001- 12312312-27",
+        "Savings Account",
+        "Wallet Account",
+        "950.00KHR"
     )
+)
+
+
 
 @Preview(showSystemUi = true)
 @Composable
@@ -124,7 +126,7 @@ fun ComposeAccount(navController: NavController) {
                 },
                 backgroundColor = Color(0xFF173a67),
                 navigationIcon = {
-                    IconButton(onClick = { navController.navigate("home") }) {
+                    IconButton(onClick = { navController.popBackStack() }) {
                         Image(
                             painter = painterResource(id = R.drawable.ic_back),
                             contentDescription = "Back"
@@ -285,7 +287,7 @@ fun ComposeAccountCards() {
 
                 )  {
                     Image(
-                        painter = painterResource(id = accountData.iconId),
+                        painter = painterResource(id = accountData.imageResourceId),
                         modifier = Modifier
                             .offset(y = 25.dp, x = 10.dp)
                             .size(30.dp),

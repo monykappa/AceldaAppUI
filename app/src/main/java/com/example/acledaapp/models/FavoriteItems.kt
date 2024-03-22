@@ -1,6 +1,7 @@
 package com.example.acledaapp.models
 
 import com.example.acledaapp.R
+import org.checkerframework.checker.units.qual.m
 
 data class FavoriteItem(
     val imageResourceId: Int,
@@ -9,7 +10,7 @@ data class FavoriteItem(
     val contentDescription: String
 )
 
-val favoriteItems = listOf(
+val favoriteItems = mutableListOf(
     FavoriteItem(
         R.drawable.ic_favorite,
         "FAVOTIRES",

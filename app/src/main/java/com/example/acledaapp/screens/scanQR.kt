@@ -69,7 +69,7 @@ fun ComposeScanQr(navController: NavController) {
                     },
                     backgroundColor = Color(0xFF173a67),
                     navigationIcon = {
-                        IconButton(onClick = { navController.navigate("home") }) {
+                        IconButton(onClick = { navController.popBackStack() }) {
                             Image(painter = painterResource(id = R.drawable.ic_back), contentDescription = "Back", modifier = Modifier.size(20.dp))
                         }
                     },

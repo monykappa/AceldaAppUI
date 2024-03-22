@@ -2,9 +2,9 @@ package com.example.acledaapp.models
 
 import com.example.acledaapp.R
 
-data class DrawerItem(val iconId: Int, val text: String)
+data class DrawerItem(val imageResourceId: Int, val text: String)
 
-val drawerItems = listOf(
+val drawerItems = mutableListOf(
     DrawerItem(R.drawable.ic_global, "Country and Language"),
     DrawerItem(R.drawable.ic_setting, "Settings"),
     DrawerItem(R.drawable.ic_location, "Location"),

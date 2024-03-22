@@ -246,7 +246,7 @@ fun ComposeDrawerItemsContent() {
                     modifier = Modifier.padding(12.dp)
                 ) {
                     Image(
-                        painter = painterResource(id = item.iconId),
+                        painter = painterResource(id = item.imageResourceId),
                         contentDescription = null,
                         modifier = Modifier.size(24.dp)
                     )
