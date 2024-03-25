@@ -28,9 +28,11 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Gray
+import androidx.compose.ui.graphics.Color.Companion.Red
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -131,87 +133,89 @@ fun ComposeInputQuickCash() {
             )
             {
                 Spacer(modifier = Modifier.height(56.dp))
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(40.dp)
-                        .background(Color.White)
-                        .border(0.5.dp, Gray),
-
-
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = "012 123 123",
+                Box(modifier = Modifier.border(0.5.dp, Gray, RoundedCornerShape(10.dp)).clip(RoundedCornerShape(10.dp))){
+                    Row(
                         modifier = Modifier
-                            .weight(1f)
-                            .padding(start = 8.dp),
-                        fontWeight = FontWeight.Bold,
-                        color = Color(0xFFa3a3a3),
-                        fontFamily = montyFontFamily,
-                        fontSize = 15.sp
-                    )
+                            .fillMaxWidth()
+                            .height(40.dp)
+                            .background(Color.White),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "012 123 123",
+                            modifier = Modifier
+                                .weight(1f)
+                                .padding(start = 8.dp),
+                            fontWeight = FontWeight.Bold,
+                            color = Color(0xFFa3a3a3),
+                            fontFamily = montyFontFamily,
+                            fontSize = 15.sp
+                        )
 
-                    Text(
-                        text = "17.28 USD",
-                        modifier = Modifier
-                            .weight(1f)
-                            .padding(end = 8.dp),
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = montyFontFamily,
-                        color = Color(0xFF173a67),
-                        fontSize = 15.sp,
-                        textAlign = TextAlign.End
-                    )
+                        Text(
+                            text = "17.28 USD",
+                            modifier = Modifier
+                                .weight(1f)
+                                .padding(end = 8.dp),
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = montyFontFamily,
+                            color = Color(0xFF173a67),
+                            fontSize = 15.sp,
+                            textAlign = TextAlign.End
+                        )
 
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_wallet),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .size(40.dp)
-                            .padding(horizontal = 8.dp)
-                    )
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_wallet),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(40.dp)
+                                .padding(horizontal = 8.dp)
+                        )
+                    }
                 }
+
                 Spacer(modifier = Modifier.height(16.dp))
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(Color.White)
-                        .height(40.dp)
-                        .border(0.5.dp, Gray),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.End
-                ) {
-                    Text(
-                        text = "Amount",
+                Box(modifier = Modifier.border(0.5.dp, Gray, RoundedCornerShape(10.dp)).clip(RoundedCornerShape(10.dp))){
+                    Row(
                         modifier = Modifier
-                            .weight(1f)
-                            .padding(start = 8.dp),
-                        fontWeight = FontWeight.Bold,
-                        color = Color(0xFF6b6b6b),
-                        fontFamily = montyFontFamily,
-                        fontSize = 14.sp
-                    )
+                            .fillMaxWidth()
+                            .background(Color.White)
+                            .height(40.dp)
+                            .border(0.5.dp, Gray),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.End
+                    ) {
+                        Text(
+                            text = "Amount",
+                            modifier = Modifier
+                                .weight(1f)
+                                .padding(start = 8.dp),
+                            fontWeight = FontWeight.Bold,
+                            color = Color(0xFF6b6b6b),
+                            fontFamily = montyFontFamily,
+                            fontSize = 14.sp
+                        )
 
-                    Text(
-                        text = "USD",
-                        modifier = Modifier
-                            .weight(1f)
-                            .padding(end = 8.dp),
-                        fontWeight = FontWeight.Bold,
-                        color = Color(0xFFcea530),
-                        fontFamily = montyFontFamily,
-                        fontSize = 15.sp,
-                        textAlign = TextAlign.End
-                    )
+                        Text(
+                            text = "USD",
+                            modifier = Modifier
+                                .weight(1f)
+                                .padding(end = 8.dp),
+                            fontWeight = FontWeight.Bold,
+                            color = Color(0xFFcea530),
+                            fontFamily = montyFontFamily,
+                            fontSize = 15.sp,
+                            textAlign = TextAlign.End
+                        )
 
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_arrow_down),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .size(30.dp)
-                            .padding(horizontal = 8.dp)
-                    )
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_arrow_down),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(30.dp)
+                                .padding(horizontal = 8.dp)
+                        )
+                    }
                 }
                 Spacer(modifier = Modifier.height(16.dp))
                 Row(
