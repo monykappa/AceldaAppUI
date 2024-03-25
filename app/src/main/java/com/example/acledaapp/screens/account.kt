@@ -18,7 +18,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+//import androidx.compose.foundation.layout.ColumnScopeInstance.weight
 import androidx.compose.foundation.layout.Row
+//import androidx.compose.foundation.layout.RowScopeInstance.weight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -88,82 +90,28 @@ val accountDataList = mutableListOf(
 @Composable
 fun AccountScreenPreview() {
     val navController = rememberNavController()
-    ComposeAccount(navController = navController)
+    AccountScreen(navController = navController)
 }
 
 @Composable
 fun AccountScreen(navController: NavController) {
-    ComposeAccount(navController = navController)
-}
-
-@Composable
-fun ComposeAccount(navController: NavController) {
-    Surface {
+    Column(
+        modifier = Modifier.fillMaxSize()
+    ) {
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Color.White),
-            verticalArrangement = Arrangement.Top
+            modifier = Modifier.weight(1f)
         ) {
-            TopAppBar(
-                modifier = Modifier.height(60.dp),
-                title = {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(end = 0.dp),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(
-                            text = "ACCOUNTS",
-                            fontWeight = FontWeight.Bold,
-                            textAlign = TextAlign.Center,
-                            fontFamily = montyFontFamily,
-                            fontSize = 18.sp,
-                            color = Color.White
-                        )
-                    }
-                },
-                backgroundColor = Color(0xFF173a67),
-                navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
-                        Image(
-                            painter = painterResource(id = R.drawable.ic_back),
-                            contentDescription = "Back"
-                        )
-                    }
-                },
-                actions = {
-                    Box(
-                        modifier = Modifier.padding(end = 16.dp)
-                    ) {
-                        IconButton(
-                            onClick = { /* Handle logo image click */ },
-                            modifier = Modifier.size(40.dp),
-                        ) {
-                            Image(
-                                painter = painterResource(id = R.drawable.ac_logo),
-                                contentDescription = "Account"
-                            )
-                        }
-                    }
-                },
-                elevation = AppBarDefaults.TopAppBarElevation
-            )
-
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.SpaceBetween
-            ) {
-                Column(modifier = Modifier.weight(1f)) {
-                    ComposeButtonRow()
-                    ComposeAccountCards()
-                }
-                ComposeBottomButton()
-            }
+            ComposeNavbar(navController = navController, "ACCOUNT")
+            ComposeButtonRow()
+            ComposeAccountCards(modifier = Modifier.weight(1f))
         }
+        ComposeBottomButton()
     }
 }
+
+
+
+
 
 @Composable
 fun ComposeBottomButton() {
@@ -271,8 +219,8 @@ fun ComposeButtonRow() {
 }
 
 @Composable
-fun ComposeAccountCards() {
-    Surface(modifier = Modifier.fillMaxSize()) {
+fun ComposeAccountCards(modifier: Modifier) {
+    Surface() {
         Column(modifier = Modifier.background(Color.White)) {
             accountDataList.forEachIndexed { index, accountData ->
                 Row(

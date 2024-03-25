@@ -66,70 +66,18 @@ val depositDataList = listOf(
 @Composable
 fun DepositScreenPreview(){
     val navController = rememberNavController()
-    ComposeDeposit(navController = navController)
+    DepositScreen(navController = navController)
 }
 
 @Composable
 fun DepositScreen(navController: NavController) {
-    ComposeDeposit(navController = navController)
-}
-
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
-@Composable
-fun ComposeDeposit(navController: NavController) {
-    Surface {
-        Scaffold(
-            topBar = {
-                TopAppBar(
-                    modifier = Modifier.height(60.dp),
-                    title = {
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(end = 25.dp),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(
-                                text = "DEPOSITS",
-                                fontWeight = FontWeight.Bold,
-                                textAlign = TextAlign.Center,
-                                fontFamily = montyFontFamily,
-                                fontSize = 18.sp,
-                                color = Color.White,
-                                modifier = Modifier
-                            )
-                        }
-                    },
-                    backgroundColor = Color(0xFF173a67),
-                    navigationIcon = {
-                        IconButton(onClick = { navController.popBackStack() }) {
-                            Image(painter = painterResource(id = R.drawable.ic_back), contentDescription = "Back", modifier = Modifier.size(20.dp))
-                        }
-                    },
-                    actions = {
-                        Box(
-                            modifier = Modifier.padding(end = 16.dp)
-                        ) {
-                            IconButton(
-                                onClick = { /* Handle logo image click */ },
-                                modifier = Modifier.size(40.dp),
-                            ) {
-                                Image(
-                                    painter = painterResource(id = R.drawable.ac_logo),
-                                    contentDescription = "Account"
-                                )
-                            }
-                        }
-                    },
-                    elevation = AppBarDefaults.TopAppBarElevation
-                )
-
-            }
-        ) {
-            ComposeDepositsCards()
-        }
+    Column(){
+        ComposeNavbar(navController = navController, navName = "DEPOSITS" )
+        ComposeDepositsCards()
     }
+
 }
+
 
 @Composable
 fun ComposeDepositsCards() {

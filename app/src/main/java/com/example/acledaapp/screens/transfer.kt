@@ -32,67 +32,10 @@ import com.example.acledaapp.models.montyFontFamily
 @Composable
 fun TransferScreenPreview() {
     val navController = rememberNavController()
-    ComposeTransfer(navController = navController)
+    TransferScreen(navController = navController)
 }
 
 @Composable
 fun TransferScreen(navController: NavController) {
-    ComposeTransfer(navController = navController)
-}
-
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
-@Composable
-fun ComposeTransfer(navController: NavController) {
-    Surface {
-        Scaffold(
-            topBar = {
-                TopAppBar(
-                    modifier = Modifier.height(60.dp),
-                    title = {
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(end = 25.dp),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(
-                                text = "TRANSFERS",
-                                fontWeight = FontWeight.Bold,
-                                textAlign = TextAlign.Center,
-                                fontFamily = montyFontFamily,
-                                fontSize = 18.sp,
-                                color = Color.White,
-                                modifier = Modifier
-                            )
-                        }
-                    },
-                    backgroundColor = Color(0xFF173a67),
-                    navigationIcon = {
-                        IconButton(onClick = { navController.popBackStack() }) {
-                            Image(painter = painterResource(id = R.drawable.ic_back), contentDescription = "Back", modifier = Modifier.size(20.dp))
-                        }
-                    },
-                    actions = {
-                        Box(
-                            modifier = Modifier.padding(end = 16.dp)
-                        ) {
-                            IconButton(
-                                onClick = { },
-                                modifier = Modifier.size(40.dp),
-                            ) {
-                                Image(
-                                    painter = painterResource(id = R.drawable.ac_logo),
-                                    contentDescription = "Account"
-                                )
-                            }
-                        }
-                    },
-                    elevation = AppBarDefaults.TopAppBarElevation
-                )
-
-            }
-        ) {
-            // Content of the scaffold
-        }
-    }
+    ComposeNavbar(navController = navController, "TRANSFER")
 }

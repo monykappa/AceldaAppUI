@@ -41,11 +41,15 @@ import com.example.acledaapp.models.truenorgbdFontFamily
 @Composable
 fun LoanScreenPreview(){
     val navController = rememberNavController()
-    ComposeLoan(navController = navController)
+    LoanScreen(navController = navController)
 }
 @Composable
 fun LoanScreen(navController: NavController) {
-    ComposeLoan(navController = navController)
+    Column(){
+        ComposeNavbar(navController = navController, navName = "LOANS" )
+        ComposeLoansCards()
+    }
+
 }
 
 data class LoanData(
@@ -78,62 +82,6 @@ val loanDataList = listOf(
     ),
 )
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
-@Composable
-fun ComposeLoan(navController: NavController) {
-    Surface {
-        Scaffold(
-            topBar = {
-                TopAppBar(
-                    modifier = Modifier.height(60.dp),
-                    title = {
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(end = 25.dp),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(
-                                text = "LOANS",
-                                fontWeight = FontWeight.Bold,
-                                textAlign = TextAlign.Center,
-                                fontFamily = montyFontFamily,
-                                fontSize = 18.sp,
-                                color = Color.White,
-                                modifier = Modifier
-                            )
-                        }
-                    },
-                    backgroundColor = Color(0xFF173a67),
-                    navigationIcon = {
-                        IconButton(onClick = { navController.popBackStack() }) {
-                            Image(painter = painterResource(id = R.drawable.ic_back), contentDescription = "Back", modifier = Modifier.size(20.dp))
-                        }
-                    },
-                    actions = {
-                        Box(
-                            modifier = Modifier.padding(end = 16.dp)
-                        ) {
-                            IconButton(
-                                onClick = { },
-                                modifier = Modifier.size(40.dp),
-                            ) {
-                                Image(
-                                    painter = painterResource(id = R.drawable.ac_logo),
-                                    contentDescription = "Account"
-                                )
-                            }
-                        }
-                    },
-                    elevation = AppBarDefaults.TopAppBarElevation
-                )
-            }
-        ) {
-            ComposeLoansCards()
-        }
-    }
-}
-
 @Composable
 fun ComposeLoansCards() {
     Surface(modifier = Modifier.fillMaxSize()) {
@@ -146,7 +94,7 @@ fun ComposeLoansCards() {
                             ambientColor = Color(0xFFb9b9b9),
                             elevation = (0.5.dp)
 
-                )
+                        )
                         .clickable { }
                         .padding(horizontal = 16.dp, vertical = 8.dp)
                         .fillMaxWidth(),

@@ -3,6 +3,7 @@ package com.example.acledaapp.screens
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -33,66 +34,12 @@ import com.example.acledaapp.models.montyFontFamily
 @Composable
 fun BakongScreenPreview(){
     val navController = rememberNavController()
-    ComposeBakongScreen(navController = navController)
+    BakongScreen(navController = navController)
 }
 @Composable
 fun BakongScreen(navController: NavController){
-    ComposeBakongScreen(navController = navController)
-}
+    Column(){
+        ComposeNavbar(navController = navController, "MY KHQR")
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
-@Composable
-fun ComposeBakongScreen(navController: NavController) {
-    Surface {
-        Scaffold(
-            topBar = {
-                TopAppBar(
-                    modifier = Modifier.height(60.dp),
-                    title = {
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(end = 25.dp),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(
-                                text = "MY KHQR",
-                                fontWeight = FontWeight.Bold,
-                                textAlign = TextAlign.Center,
-                                fontFamily = montyFontFamily,
-                                fontSize = 18.sp,
-                                color = Color.White,
-                                modifier = Modifier
-                            )
-                        }
-                    },
-                    backgroundColor = Color(0xFF173a67),
-                    navigationIcon = {
-                        IconButton(onClick = { navController.popBackStack() }) {
-                            Image(painter = painterResource(id = R.drawable.ic_back), contentDescription = "Back", modifier = Modifier.size(20.dp))
-                        }
-                    },
-                    actions = {
-                        Box(
-                            modifier = Modifier.padding(end = 16.dp)
-                        ) {
-                            IconButton(
-                                onClick = { /* Handle logo image click */ },
-                                modifier = Modifier.size(40.dp),
-                            ) {
-                                Image(
-                                    painter = painterResource(id = R.drawable.ac_logo),
-                                    contentDescription = "Account"
-                                )
-                            }
-                        }
-                    },
-                    elevation = AppBarDefaults.TopAppBarElevation
-                )
-
-            }
-        ) {
-            // Content of the scaffold
-        }
     }
 }

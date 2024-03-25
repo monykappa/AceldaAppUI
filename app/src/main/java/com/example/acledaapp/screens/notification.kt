@@ -38,64 +38,9 @@ fun PreviewNotification(){
 }
 @Composable
 fun notificationScreen(navController: NavController){
-    ComposeNotification(navController = navController)
-}
-
-
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
-@Composable
-fun ComposeNotification(navController: NavController) {
-    Surface {
-        Scaffold(
-            topBar = {
-                TopAppBar(
-                    modifier = Modifier.height(60.dp),
-                    title = {
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(end = 25.dp),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(
-                                text = "NOTIFICATION",
-                                fontWeight = FontWeight.Bold,
-                                textAlign = TextAlign.Center,
-                                fontFamily = montyFontFamily,
-                                fontSize = 18.sp,
-                                color = Color.White,
-                                modifier = Modifier
-                            )
-                        }
-                    },
-                    backgroundColor = Color(0xFF173a67),
-                    navigationIcon = {
-                        IconButton(onClick = { navController.popBackStack() }) {
-                            Image(painter = painterResource(id = R.drawable.ic_back), contentDescription = "Back", modifier = Modifier.size(20.dp))
-                        }
-                    },
-                    actions = {
-                        Box(
-                            modifier = Modifier.padding(end = 16.dp)
-                        ) {
-                            IconButton(
-                                onClick = { },
-                                modifier = Modifier.size(40.dp),
-                            ) {
-                                Image(
-                                    painter = painterResource(id = R.drawable.ac_logo),
-                                    contentDescription = "Account"
-                                )
-                            }
-                        }
-                    },
-                    elevation = AppBarDefaults.TopAppBarElevation
-                )
-
-            }
-        ) {
-            ComposeDisplayNotifications()
-        }
+    Column(){
+        ComposeNavbar(navController = navController, navName = "NOTIFICATION")
+        ComposeDisplayNotifications()
     }
 }
 
@@ -163,7 +108,10 @@ fun NotificationItem(iconId: Int, title: String, time: String, message: String) 
                 modifier = Modifier.padding(start = 10.dp, end = 30.dp, top = 10.dp)
             )
             Box(
-                modifier = Modifier.fillMaxWidth().offset(y = (-10).dp).padding(end = 2.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .offset(y = (-10).dp)
+                    .padding(end = 2.dp),
                 contentAlignment = Alignment.CenterEnd,
             ) {
                 Column {
