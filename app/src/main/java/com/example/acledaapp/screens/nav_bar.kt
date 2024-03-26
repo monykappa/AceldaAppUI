@@ -42,10 +42,9 @@ fun PreviewNavBar(){
 
 @Composable
 fun ComposeNavbar(navController: NavController, navName : String) {
-    Surface {
+    Surface() {
         Column(
             modifier = Modifier
-//                .fillMaxSize()
                 .background(Color.White),
             verticalArrangement = Arrangement.Top
         ) {
