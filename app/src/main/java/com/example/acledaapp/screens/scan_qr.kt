@@ -38,12 +38,12 @@ import coil.compose.AsyncImagePainter.State.Empty.painter
 import com.example.acledaapp.R
 import com.example.acledaapp.models.montyFontFamily
 
-
 @Preview(showSystemUi = true)
 @Composable
 fun ScanQrScreenPreview(){
     val navController = rememberNavController()
     ScanQrScreen(navController = navController)
+
 }
 @Composable
 fun ScanQrScreen(navController: NavController) {
@@ -54,7 +54,6 @@ fun ScanQrScreen(navController: NavController) {
     }
 }
 
-
 data class ImageData(val resourceId: Int)
 
 val images = listOf(
@@ -64,8 +63,6 @@ val images = listOf(
     ImageData(R.drawable.acleda_logo),
     ImageData(R.drawable.acleda_logo),
     ImageData(R.drawable.acleda_logo),
-
-
 )
 @Composable
 fun ComposeScanQr() {
@@ -91,14 +88,14 @@ fun ComposeScanQr() {
                     modifier = Modifier
                         .width(300.dp)
                         .height(250.dp)
+
                 ) {
                     Image(
-                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .padding(5.dp),
+//                        contentScale = ContentScale.Crop,
                         painter = painterResource(id = R.drawable.my_qr_code),
                         contentDescription = null,
-
-
-
                     )
                 }
                 Text(
@@ -112,14 +109,15 @@ fun ComposeScanQr() {
                     images.forEach { imageData ->
                         Box(
                             modifier = Modifier
-                                .clickable { }
-                                .clip(RoundedCornerShape(20.dp))
+
                                 .padding(start = 5.dp)
                         ) {
                             Image(
                                 painter = painterResource(id = imageData.resourceId),
                                 contentDescription = null,
                                 modifier = Modifier.size(50.dp)
+                                    .clip(RoundedCornerShape(20.dp))
+                                    .clickable { }
                             )
                         }
                     }
@@ -132,8 +130,8 @@ fun ComposeScanQr() {
                             Box(
                                 modifier = Modifier
                                     .size(60.dp)
-                                    .clickable { }
                                     .clip(RoundedCornerShape(50.dp))
+                                    .clickable { }
                                     .background(Color(0xFF536780)),
                                 contentAlignment = Alignment.Center
                             ) {
@@ -162,8 +160,8 @@ fun ComposeScanQr() {
                             Box(
                                 modifier = Modifier
                                     .size(60.dp)
-                                    .clickable { }
                                     .clip(RoundedCornerShape(50.dp))
+                                    .clickable { }
                                     .background(Color(0xFF536780)),
                                 contentAlignment = Alignment.Center
                             ) {

@@ -18,9 +18,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-//import androidx.compose.foundation.layout.ColumnScopeInstance.weight
 import androidx.compose.foundation.layout.Row
-//import androidx.compose.foundation.layout.RowScopeInstance.weight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -84,8 +82,6 @@ val accountDataList = mutableListOf(
     )
 )
 
-
-
 @Preview(showSystemUi = true)
 @Composable
 fun AccountScreenPreview() {
@@ -108,10 +104,6 @@ fun AccountScreen(navController: NavController) {
         ComposeBottomButton()
     }
 }
-
-
-
-
 
 @Composable
 fun ComposeBottomButton() {
@@ -139,7 +131,7 @@ fun ComposeBottomButton() {
             }
         }
         Button(
-            onClick = { /* Handle button click */ },
+            onClick = { },
             modifier = Modifier.fillMaxWidth().height(50.dp),
             shape = RoundedCornerShape(0.dp),
             colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF23324f)),
@@ -163,10 +155,10 @@ fun ComposeButtonRow() {
         modifier = Modifier.fillMaxWidth(),
     ) {
         Button(
-            onClick = { /* Handle button click */ },
+            onClick = {},
             modifier = Modifier.size(100.dp, 40.dp),
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF23324f)), // Set the background color here
-            shape = RoundedCornerShape(0.dp) // Set the shape to rectangular
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF23324f)),
+            shape = RoundedCornerShape(0.dp)
         ) {
             Text(
                 text = "ACCOUNTS",
@@ -178,12 +170,12 @@ fun ComposeButtonRow() {
             )
         }
         Button(
-            onClick = { /* Handle button click */ },
+            onClick = { },
             modifier = Modifier
                 .size(100.dp, 40.dp)
                 .fillMaxSize(),
             shape = RoundedCornerShape(0.dp),
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF101b2d)) // Set the background color here
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF101b2d))
         ) {
             Text(
                 text = "TRADING",
@@ -192,10 +184,10 @@ fun ComposeButtonRow() {
             )
         }
         Button(
-            onClick = { /* Handle button click */ },
+            onClick = { },
             modifier = Modifier.size(100.dp, 40.dp),
-            shape = RoundedCornerShape(0.dp), // Set the shape to rectangular
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF101b2d)) // Set the background color here
+            shape = RoundedCornerShape(0.dp),
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF101b2d))
         ) {
             Text(
                 text = "CARDS",
@@ -204,10 +196,10 @@ fun ComposeButtonRow() {
             )
         }
         Button(
-            onClick = { /* Handle button click */ },
-            modifier = Modifier.size(100.dp, 40.dp),  shape = RoundedCornerShape(0.dp), // Set the shape to rectangular
+            onClick = {  },
+            modifier = Modifier.size(100.dp, 40.dp),  shape = RoundedCornerShape(0.dp),
 
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF101b2d)) // Set the background color here
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF101b2d))
         ) {
             Text(
                 text = "LINK",
@@ -224,7 +216,9 @@ fun ComposeAccountCards(modifier: Modifier) {
         Column(modifier = Modifier.background(Color.White)) {
             accountDataList.forEachIndexed { index, accountData ->
                 Row(
+
                     modifier = Modifier
+
                         .shadow(
                             ambientColor = Color(0xFFb9b9b9),
                             elevation = (0.5.dp)
@@ -266,7 +260,7 @@ fun ComposeAccountCards(modifier: Modifier) {
                                 .offset(x = 15.dp)
                         )
                     }
-                    Spacer(modifier = Modifier.weight(1f)) // Expandable space
+                    Spacer(modifier = Modifier.weight(1f))
                     Column(modifier = Modifier.padding(end = 20.dp, top = 10.dp)) {
                         // Wallet
                         Text(
