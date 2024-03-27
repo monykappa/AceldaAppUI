@@ -1,5 +1,7 @@
 package com.example.acledaapp.screens
 
+import android.graphics.Paint
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -24,8 +26,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
+import androidx.compose.ui.graphics.nativeCanvas
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -49,10 +55,14 @@ fun ScanQrScreenPreview(){
 fun ScanQrScreen(navController: NavController) {
     Column(){
         ComposeNavbar(navController = navController, "SCAN QR")
-        ComposeScanQr()
+
+//        ComposeScanQr()
 
     }
 }
+
+
+
 
 data class ImageData(val resourceId: Int)
 
@@ -64,126 +74,131 @@ val images = listOf(
     ImageData(R.drawable.acleda_logo),
     ImageData(R.drawable.acleda_logo),
 )
-@Composable
-fun ComposeScanQr() {
-    Surface(
-        color = Color(0xFF2a3748),
-        modifier = Modifier.fillMaxSize()
-    ) {
-        Box(modifier = Modifier
-            .fillMaxSize()
-            .offset(y = 30.dp), contentAlignment = Alignment.Center) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(
-                    "Align frame with QR code",
-                    color = Color.White,
-                    fontFamily = montyFontFamily,
-                    fontWeight = FontWeight.ExtraBold,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.padding(top = 10.dp, bottom = 20.dp)
 
-                )
-                Box(
-                    contentAlignment = Alignment.Center,
-                    modifier = Modifier
-                        .width(300.dp)
-                        .height(250.dp)
 
-                ) {
-                    Image(
-                        modifier = Modifier
-                            .padding(5.dp),
-//                        contentScale = ContentScale.Crop,
-                        painter = painterResource(id = R.drawable.my_qr_code),
-                        contentDescription = null,
-                    )
-                }
-                Text(
-                    "Accepted",
-                    color = Color.White,
-                    fontWeight = FontWeight.Bold,
-                    fontStyle = FontStyle.Italic,
-                    modifier = Modifier.padding(top = 30.dp, bottom = 10.dp)
-                )
-                Row {
-                    images.forEach { imageData ->
-                        Box(
-                            modifier = Modifier
 
-                                .padding(start = 5.dp)
-                        ) {
-                            Image(
-                                painter = painterResource(id = imageData.resourceId),
-                                contentDescription = null,
-                                modifier = Modifier.size(50.dp)
-                                    .clip(RoundedCornerShape(20.dp))
-                                    .clickable { }
-                            )
-                        }
-                    }
-                }
-                    Row(modifier = Modifier.padding(top = 60.dp)) {
-                        Column(
-                            verticalArrangement = Arrangement.Center,
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            Box(
-                                modifier = Modifier
-                                    .size(60.dp)
-                                    .clip(RoundedCornerShape(50.dp))
-                                    .clickable { }
-                                    .background(Color(0xFF536780)),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Image(
-                                    painter = painterResource(id = R.drawable.ic_flashlight),
-                                    contentDescription = null,
-                                    modifier = Modifier.size(30.dp)
-                                )
-                            }
-                            Text(
-                                "Flashlight",
-                                fontFamily = montyFontFamily,
-                                color = Color.White,
-                                fontWeight = FontWeight.ExtraBold,
-                                fontSize = 12.sp,
-                                modifier = Modifier.padding(top = 15.dp)
-                            )
-                        }
 
-                        Spacer(modifier = Modifier.width(40.dp))
 
-                        Column(
-                            verticalArrangement = Arrangement.Center,
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            Box(
-                                modifier = Modifier
-                                    .size(60.dp)
-                                    .clip(RoundedCornerShape(50.dp))
-                                    .clickable { }
-                                    .background(Color(0xFF536780)),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Image(
-                                    painter = painterResource(id = R.drawable.ic_select_qr),
-                                    contentDescription = null,
-                                    modifier = Modifier.size(30.dp)
-                                )
-                            }
-                            Text(
-                                "Select QR",
-                                fontFamily = montyFontFamily,
-                                color = Color.White,
-                                fontWeight = FontWeight.ExtraBold,
-                                fontSize = 12.sp,
-                                modifier = Modifier.padding(top = 15.dp)
-                            )
-                        }
-                    }
-                }
-            }
-        }
-
-    }
-
+//@Composable
+//fun ComposeScanQr() {
+//    Surface(
+//        color = Color(0xFF2a3748),
+//        modifier = Modifier.fillMaxSize()
+//    ) {
+//        Box(modifier = Modifier
+//            .fillMaxSize()
+//            .offset(y = 30.dp), contentAlignment = Alignment.Center) {
+//            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+//                Text(
+//                    "Align frame with QR code",
+//                    color = Color.White,
+//                    fontFamily = montyFontFamily,
+//                    fontWeight = FontWeight.ExtraBold,
+//                    textAlign = TextAlign.Center,
+//                    modifier = Modifier.padding(top = 10.dp, bottom = 20.dp)
+//
+//                )
+//                Box(
+//                    contentAlignment = Alignment.Center,
+//                    modifier = Modifier
+//                        .width(300.dp)
+//                        .height(250.dp)
+//
+//                ) {
+//                    Image(
+//                        modifier = Modifier
+//                            .padding(5.dp),
+////                        contentScale = ContentScale.Crop,
+//                        painter = painterResource(id = R.drawable.my_qr_code),
+//                        contentDescription = null,
+//                    )
+//                }
+//                Text(
+//                    "Accepted",
+//                    color = Color.White,
+//                    fontWeight = FontWeight.Bold,
+//                    fontStyle = FontStyle.Italic,
+//                    modifier = Modifier.padding(top = 30.dp, bottom = 10.dp)
+//                )
+//                Row {
+//                    images.forEach { imageData ->
+//                        Box(
+//                            modifier = Modifier
+//
+//                                .padding(start = 5.dp)
+//                        ) {
+//                            Image(
+//                                painter = painterResource(id = imageData.resourceId),
+//                                contentDescription = null,
+//                                modifier = Modifier.size(50.dp)
+//                                    .clip(RoundedCornerShape(20.dp))
+//                                    .clickable { }
+//                            )
+//                        }
+//                    }
+//                }
+//                    Row(modifier = Modifier.padding(top = 60.dp)) {
+//                        Column(
+//                            verticalArrangement = Arrangement.Center,
+//                            horizontalAlignment = Alignment.CenterHorizontally
+//                        ) {
+//                            Box(
+//                                modifier = Modifier
+//                                    .size(60.dp)
+//                                    .clip(RoundedCornerShape(50.dp))
+//                                    .clickable { }
+//                                    .background(Color(0xFF536780)),
+//                                contentAlignment = Alignment.Center
+//                            ) {
+//                                Image(
+//                                    painter = painterResource(id = R.drawable.ic_flashlight),
+//                                    contentDescription = null,
+//                                    modifier = Modifier.size(30.dp)
+//                                )
+//                            }
+//                            Text(
+//                                "Flashlight",
+//                                fontFamily = montyFontFamily,
+//                                color = Color.White,
+//                                fontWeight = FontWeight.ExtraBold,
+//                                fontSize = 12.sp,
+//                                modifier = Modifier.padding(top = 15.dp)
+//                            )
+//                        }
+//
+//                        Spacer(modifier = Modifier.width(40.dp))
+//
+//                        Column(
+//                            verticalArrangement = Arrangement.Center,
+//                            horizontalAlignment = Alignment.CenterHorizontally
+//                        ) {
+//                            Box(
+//                                modifier = Modifier
+//                                    .size(60.dp)
+//                                    .clip(RoundedCornerShape(50.dp))
+//                                    .clickable { }
+//                                    .background(Color(0xFF536780)),
+//                                contentAlignment = Alignment.Center
+//                            ) {
+//                                Image(
+//                                    painter = painterResource(id = R.drawable.ic_select_qr),
+//                                    contentDescription = null,
+//                                    modifier = Modifier.size(30.dp)
+//                                )
+//                            }
+//                            Text(
+//                                "Select QR",
+//                                fontFamily = montyFontFamily,
+//                                color = Color.White,
+//                                fontWeight = FontWeight.ExtraBold,
+//                                fontSize = 12.sp,
+//                                modifier = Modifier.padding(top = 15.dp)
+//                            )
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//
+//    }
+//
