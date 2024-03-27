@@ -4,10 +4,12 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -48,260 +50,63 @@ fun TransferScreenPreview() {
 fun TransferScreen(navController: NavController) {
     Column(){
         ComposeNavbar(navController = navController, "TRANSFER")
-        Transfer()
+        ComposeTransfer()
     }
 
 }
-
-
 @Composable
-fun Transfer() {
+fun ComposeTransfer() {
     Column(
         modifier = Modifier
+            .background(Color.White)
             .fillMaxSize()
-            .background(color = White),
-        verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .border(width = 2.dp, color = Color.Gray),
-            horizontalArrangement = Arrangement.SpaceEvenly
-        ) {
+        transferItems.forEach { item ->
             Row(
                 modifier = Modifier
-                    .weight(1f)
-                    .height(85.dp)
-                    .fillMaxWidth(1f)
-                    .border(width = 2.dp, color = Color.Gray),
-
-
-                ) {
+                    .clickable {  }
+                    .fillMaxWidth()
+                    .border(width = 0.5.dp, color = Color.Gray)
+                    .padding(8.dp),
+                horizontalArrangement = Arrangement.Start,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Image(
-                    painter = painterResource(id = R.drawable.img_15),
-                    contentDescription = "OWNACCOUNT",
+                    painter = painterResource(id = item.icon),
+                    contentDescription = item.title,
                     modifier = Modifier
-                        .width(70.dp)
-                        .height(70.dp)
-                        .padding(top = 5.dp)
+                        .size(40.dp)
                 )
-
+                Spacer(modifier = Modifier.width(16.dp))
                 Column {
                     Text(
-                        modifier = Modifier
-                            .padding(top = 10.dp),
-                        text = "OWN ACCOUNTS",
-                        style = TextStyle(fontSize = 18.sp,
-                            fontWeight = FontWeight.Bold),
-                        color = Color(28, 51, 82),
+                        text = item.title,
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = montyFontFamily,
+                        color = Color(28, 51, 82)
                     )
-
+                    Spacer(modifier = Modifier.height(4.dp))
                     Text(
-                        text = "Transfer between your ACLEDA Account",
-                        style = TextStyle(fontSize = 15.sp),
+                        text = item.description,
+                        fontSize = 12.sp,
+                        fontFamily = montyFontFamily,
+                        fontWeight = FontWeight.Bold,
                         color = Color.Gray,
+                        modifier = Modifier.padding(end = 10.dp)
                     )
-
                 }
-
-
             }
-
-        }
-
-
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .border(width = 2.dp, color = Color.Gray),
-            horizontalArrangement = Arrangement.SpaceEvenly
-        ) {
-            Row(
-                modifier = Modifier
-                    .weight(1f)
-                    .height(85.dp)
-                    .fillMaxWidth(1f)
-                    .border(width = 2.dp, color = Color.Gray),
-
-
-                ) {
-                Image(
-                    painter = painterResource(id = R.drawable.img_16), // Assuming R.drawable.img_15 exists
-                    contentDescription = "ACLEDA",
-                    modifier = Modifier
-                        .width(70.dp)
-                        .height(70.dp)
-                        .padding(top = 5.dp)
-                )
-
-                Column {
-                    Text(
-                        modifier = Modifier
-                            .padding(top = 10.dp),
-                        text = "ACLEDA ACCOUNT/PHONE NUMBER",
-                        style = TextStyle(fontSize = 18.sp,
-                            fontWeight = FontWeight.Bold),
-                        color = Color(28, 51, 82),
-                    )
-
-                    Text(
-                        text = "Transfer to Bank/Wallet Account or Phone Number",
-                        style = TextStyle(fontSize = 15.sp),
-                        color = Color.Gray,
-                    )
-
-                }
-
-
-            }
-
-        }
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .border(width = 2.dp, color = Color.Gray),
-            horizontalArrangement = Arrangement.SpaceEvenly
-        ) {
-            Row(
-                modifier = Modifier
-                    .weight(1f)
-                    .height(85.dp)
-                    .fillMaxWidth(1f)
-                    .border(width = 2.dp, color = Color.Gray),
-
-
-                ) {
-                Image(
-                    painter = painterResource(id = R.drawable.img_17), // Assuming R.drawable.img_15 exists
-                    contentDescription = "Other",
-                    modifier = Modifier
-                        .width(70.dp)
-                        .height(70.dp)
-                        .padding(top = 5.dp)
-                )
-
-
-                Column {
-                    Text(
-                        modifier = Modifier
-                            .padding(top = 10.dp),
-                        text = "OTHER LOCAL BANKS OR MFIs",
-                        style = TextStyle(fontSize = 18.sp,
-                            fontWeight = FontWeight.Bold),
-                        color = Color(28, 51, 82),
-                    )
-
-                    Text(
-                        text = "Transfer to other Local Bank Accounts, Wallets or Phone",
-                        style = TextStyle(fontSize = 15.sp),
-                        color = Color.Gray,
-                    )
-
-                }
-
-
-            }
-
-        }
-
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .border(width = 2.dp, color = Color.Gray),
-            horizontalArrangement = Arrangement.SpaceEvenly
-        ) {
-            Row(
-                modifier = Modifier
-                    .weight(1f)
-                    .height(85.dp)
-                    .fillMaxWidth(1f)
-                    .border(width = 2.dp, color = Color.Gray),
-
-
-                ) {
-                Image(
-                    painter = painterResource(id = R.drawable.img_18), // Assuming R.drawable.img_15 exists
-                    contentDescription = "INTERNATIONAL",
-                    modifier = Modifier
-                        .width(70.dp)
-                        .height(70.dp)
-                        .padding(top = 5.dp)
-                )
-
-                Column {
-                    Text(
-                        modifier = Modifier
-                            .padding(top = 10.dp),
-                        text = "INTERNATIONAL TRANSFERS",
-                        style = TextStyle(fontSize = 18.sp,
-                            fontWeight = FontWeight.Bold),
-                        color = Color(28, 51, 82),
-                    )
-
-                    Text(
-                        text = "Overseas fund transfer to bank account/agent/card",
-                        style = TextStyle(fontSize = 15.sp),
-                        color = Color.Gray,
-                    )
-
-                }
-
-
-            }
-
-        }
-
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .border(width = 2.dp, color = Color.Gray),
-            horizontalArrangement = Arrangement.SpaceEvenly
-        ) {
-            Row(
-                modifier = Modifier
-                    .weight(1f)
-                    .height(85.dp)
-                    .fillMaxWidth(1f)
-                    .border(width = 2.dp, color = Color.Gray),
-
-
-                ) {
-                Image(
-                    painter = painterResource(id = R.drawable.img_20), // Assuming R.drawable.img_15 exists
-                    contentDescription = "INTERNATIONAL",
-                    modifier = Modifier
-                        .width(70.dp)
-                        .height(70.dp)
-                        .padding(top = 5.dp)
-                )
-
-                Column {
-                    Text(
-                        modifier = Modifier
-                            .padding(top = 10.dp),
-                        text = "INTERNATIONAL CARD",
-                        style = TextStyle(fontSize = 18.sp,
-                            fontWeight = FontWeight.Bold),
-                        color = Color(28, 51, 82),
-                    )
-
-                    Text(
-                        text = "Transfer to Visa, Mastercard",
-                        style = TextStyle(fontSize = 15.sp),
-                        color = Color.Gray,
-                    )
-
-                }
-
-
-            }
-
         }
     }
 }
+data class TransferItem(val icon: Int, val title: String, val description: String)
+
+val transferItems = mutableListOf(
+    TransferItem(R.drawable.ic_own_acc, "OWN ACCOUNTS", "Transfer between your ACLEDA Account"),
+    TransferItem(R.drawable.ic_ac_acc, "ACLEDA ACCOUNT/PHONE NUMBER", "Transfer to Bank/Wallet Account or Phone Number"),
+    TransferItem(R.drawable.ic_other_banks, "OTHER LOCAL BANKS OR MFIs", "Transfer to other Local Bank Accounts, Wallets or Phone"),
+    TransferItem(R.drawable.ic_int_transfer, "INTERNATIONAL TRANSFERS", "Overseas fund transfer to bank account/agent/card"),
+    TransferItem(R.drawable.ic_int_card, "INTERNATIONAL CARD", "Transfer to Visa, Mastercard")
+)
 

@@ -57,13 +57,12 @@ fun MobileScreenPreview() {
 fun MobileScreen(navController: NavController) {
     Column(){
         ComposeNavbar(navController = navController, navName = "MOBILE TOP-UP" )
-        ComposeTopUp()
+        ComposeMobileTopUp()
     }
-
 }
 
 @Composable
-fun ComposeTopUp() {
+fun ComposeMobileTopUp() {
     Surface(){
         Column(
             modifier = Modifier
@@ -91,7 +90,6 @@ fun ComposeTopUp() {
 
                         )
                 }
-
                 Box(
                     modifier = Modifier
                         .weight(1f)
@@ -108,7 +106,6 @@ fun ComposeTopUp() {
                         )
                 }
             }
-
             Column(
                 modifier = Modifier
                     .width(450.dp)
@@ -131,7 +128,6 @@ fun ComposeTopUp() {
                     modifier = Modifier.padding(top = 10.dp)
                 )
             }
-
             Column(
                 modifier = Modifier.padding(horizontal = 20.dp)
             ) {
@@ -254,5 +250,3 @@ fun ComposeTopUp() {
         }
     }
 }
-
-

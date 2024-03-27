@@ -44,7 +44,6 @@ import androidx.navigation.compose.rememberNavController
 import com.example.acledaapp.R
 import com.example.acledaapp.models.montyFontFamily
 
-
 @Preview(showSystemUi = true)
 @Composable
 fun BakongScreenPreview(){
@@ -58,8 +57,6 @@ fun BakongScreen(navController: NavController){
         ComposeBakong()
     }
 }
-
-
 @Composable
 fun ComposeBakong(){
     Column(
@@ -124,7 +121,6 @@ fun ComposeBakong(){
                     .height(200.dp))
             }
         }
-
         Column(
             modifier = Modifier
                 .padding(top = 25.dp, bottom = 15.dp)
@@ -150,7 +146,6 @@ fun ComposeBakong(){
                     contentDescription = "ICON",
                 )
             }
-
         }
         Row(
         ){
@@ -241,7 +236,6 @@ fun QRScanCamera() {
                 .width(350.dp)
                 .height(700.dp),
             verticalArrangement = Arrangement.Center,
-            //   horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
             Text(text = "Align frame with QR code",
@@ -271,8 +265,6 @@ fun QRScanCamera() {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth().offset(x = 100.dp)
-
-
             ){
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally
