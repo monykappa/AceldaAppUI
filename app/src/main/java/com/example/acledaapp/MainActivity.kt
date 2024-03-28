@@ -38,7 +38,6 @@ class MainActivity : ComponentActivity() {
 fun App() {
     HomeScreen()
 }
-
 @Preview(showBackground = true)
 @Composable
 fun HomeScreen() {
