@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -37,7 +36,6 @@ fun PreviewNavBar(){
     val navController = rememberNavController()
     ComposeNavbar(navController = navController, "ACCOUNT")
 }
-
 
 
 @Composable
@@ -94,7 +92,6 @@ fun ComposeNavbar(navController: NavController, navName : String) {
                 },
                 elevation = AppBarDefaults.TopAppBarElevation
             )
-
 
         }
     }

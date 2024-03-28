@@ -22,7 +22,6 @@ import com.example.acledaapp.screens.ScanQrScreen
 import com.example.acledaapp.screens.notificationScreen
 import com.example.acledaapp.screens.TransferScreen
 
-
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,13 +33,11 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-
 @Preview(showBackground = true)
 @Composable
 fun App() {
     HomeScreen()
 }
-
 
 @Preview(showBackground = true)
 @Composable
@@ -86,5 +83,3 @@ fun HomeScreen() {
         }
     }
 }
-
-

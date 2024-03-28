@@ -1,15 +1,10 @@
 package com.example.acledaapp.screens
 
-import android.graphics.Paint
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -18,18 +13,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
-import androidx.compose.ui.graphics.nativeCanvas
-import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
@@ -40,7 +28,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import coil.compose.AsyncImagePainter.State.Empty.painter
 import com.example.acledaapp.R
 import com.example.acledaapp.models.montyFontFamily
 
@@ -49,156 +36,92 @@ import com.example.acledaapp.models.montyFontFamily
 fun ScanQrScreenPreview(){
     val navController = rememberNavController()
     ScanQrScreen(navController = navController)
-
 }
 @Composable
 fun ScanQrScreen(navController: NavController) {
     Column(){
         ComposeNavbar(navController = navController, "SCAN QR")
-
-//        ComposeScanQr()
-
+        ComposeQRScanCamera()
     }
 }
-
-
-
-
-data class ImageData(val resourceId: Int)
-
-val images = listOf(
-    ImageData(R.drawable.acleda_logo),
-    ImageData(R.drawable.acleda_logo),
-    ImageData(R.drawable.acleda_logo),
-    ImageData(R.drawable.acleda_logo),
-    ImageData(R.drawable.acleda_logo),
-    ImageData(R.drawable.acleda_logo),
-)
-
-
-
-
-
-//@Composable
-//fun ComposeScanQr() {
-//    Surface(
-//        color = Color(0xFF2a3748),
-//        modifier = Modifier.fillMaxSize()
-//    ) {
-//        Box(modifier = Modifier
-//            .fillMaxSize()
-//            .offset(y = 30.dp), contentAlignment = Alignment.Center) {
-//            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-//                Text(
-//                    "Align frame with QR code",
-//                    color = Color.White,
-//                    fontFamily = montyFontFamily,
-//                    fontWeight = FontWeight.ExtraBold,
-//                    textAlign = TextAlign.Center,
-//                    modifier = Modifier.padding(top = 10.dp, bottom = 20.dp)
-//
-//                )
-//                Box(
-//                    contentAlignment = Alignment.Center,
-//                    modifier = Modifier
-//                        .width(300.dp)
-//                        .height(250.dp)
-//
-//                ) {
-//                    Image(
-//                        modifier = Modifier
-//                            .padding(5.dp),
-////                        contentScale = ContentScale.Crop,
-//                        painter = painterResource(id = R.drawable.my_qr_code),
-//                        contentDescription = null,
-//                    )
-//                }
-//                Text(
-//                    "Accepted",
-//                    color = Color.White,
-//                    fontWeight = FontWeight.Bold,
-//                    fontStyle = FontStyle.Italic,
-//                    modifier = Modifier.padding(top = 30.dp, bottom = 10.dp)
-//                )
-//                Row {
-//                    images.forEach { imageData ->
-//                        Box(
-//                            modifier = Modifier
-//
-//                                .padding(start = 5.dp)
-//                        ) {
-//                            Image(
-//                                painter = painterResource(id = imageData.resourceId),
-//                                contentDescription = null,
-//                                modifier = Modifier.size(50.dp)
-//                                    .clip(RoundedCornerShape(20.dp))
-//                                    .clickable { }
-//                            )
-//                        }
-//                    }
-//                }
-//                    Row(modifier = Modifier.padding(top = 60.dp)) {
-//                        Column(
-//                            verticalArrangement = Arrangement.Center,
-//                            horizontalAlignment = Alignment.CenterHorizontally
-//                        ) {
-//                            Box(
-//                                modifier = Modifier
-//                                    .size(60.dp)
-//                                    .clip(RoundedCornerShape(50.dp))
-//                                    .clickable { }
-//                                    .background(Color(0xFF536780)),
-//                                contentAlignment = Alignment.Center
-//                            ) {
-//                                Image(
-//                                    painter = painterResource(id = R.drawable.ic_flashlight),
-//                                    contentDescription = null,
-//                                    modifier = Modifier.size(30.dp)
-//                                )
-//                            }
-//                            Text(
-//                                "Flashlight",
-//                                fontFamily = montyFontFamily,
-//                                color = Color.White,
-//                                fontWeight = FontWeight.ExtraBold,
-//                                fontSize = 12.sp,
-//                                modifier = Modifier.padding(top = 15.dp)
-//                            )
-//                        }
-//
-//                        Spacer(modifier = Modifier.width(40.dp))
-//
-//                        Column(
-//                            verticalArrangement = Arrangement.Center,
-//                            horizontalAlignment = Alignment.CenterHorizontally
-//                        ) {
-//                            Box(
-//                                modifier = Modifier
-//                                    .size(60.dp)
-//                                    .clip(RoundedCornerShape(50.dp))
-//                                    .clickable { }
-//                                    .background(Color(0xFF536780)),
-//                                contentAlignment = Alignment.Center
-//                            ) {
-//                                Image(
-//                                    painter = painterResource(id = R.drawable.ic_select_qr),
-//                                    contentDescription = null,
-//                                    modifier = Modifier.size(30.dp)
-//                                )
-//                            }
-//                            Text(
-//                                "Select QR",
-//                                fontFamily = montyFontFamily,
-//                                color = Color.White,
-//                                fontWeight = FontWeight.ExtraBold,
-//                                fontSize = 12.sp,
-//                                modifier = Modifier.padding(top = 15.dp)
-//                            )
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//
-//    }
-//
+@Composable
+fun ComposeQRScanCamera() {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = Color(43, 54, 72)),
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ){
+        Column(
+            modifier = Modifier
+                .width(350.dp)
+                .height(700.dp),
+            verticalArrangement = Arrangement.Center,
+        ) {
+            Text(text = "Align frame with QR code",
+                style = TextStyle(fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold),
+                color = Color.White,
+                fontFamily = montyFontFamily,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth()
+            )
+            Image(
+                painter=painterResource(id=R.drawable.img_6),contentDescription = "QRCODE",modifier = Modifier
+                    .width(450.dp)
+                    .height(350.dp))
+            Text(
+                text = "Accepted",
+                style = TextStyle(
+                    fontSize = 22.sp,
+                    fontWeight = FontWeight.Bold,
+                    fontStyle = FontStyle.Italic
+                ),
+                color = Color.White,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth()
+            )
+            Image(painter=painterResource(id=R.drawable.img_7),contentDescription = "QRCODE",modifier = Modifier
+                .width(450.dp)
+                .height(100.dp))
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .offset(x = 100.dp)
+            ){
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_flashlight),
+                        contentDescription = "SAVE",
+                        modifier = Modifier
+                            .size(60.dp, 60.dp)
+                            .background(
+                                color = Color(81, 103, 128),
+                                shape = RoundedCornerShape(100.dp)
+                            )
+                            .padding(15.dp),
+                    )
+                    Text(text = "Flashlight",style = TextStyle( fontSize = 14.sp),color = Color.White,fontFamily = montyFontFamily,modifier = Modifier.padding(top = 8.dp))
+                }
+                Column( horizontalAlignment = Alignment.CenterHorizontally,modifier = Modifier.padding(horizontal = 16.dp)) {
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_select_qr),
+                        contentDescription = "SetAmount",
+                        modifier = Modifier
+                            .size(60.dp, 60.dp)
+                            .background(
+                                color = Color(81, 103, 128),
+                                shape = RoundedCornerShape(100.dp)
+                            )
+                            .padding(15.dp),
+                    )
+                    Text(text = "Select QR",style = TextStyle( fontSize = 14.sp),fontFamily = montyFontFamily,color = Color.White,modifier = Modifier.padding(top = 8.dp))
+                }
+            }
+        }
+    }
+}

@@ -55,11 +55,7 @@ fun QuickCashScreen(navController: NavController) {
         Spacer(modifier = Modifier.weight(1f))
         ComposeGenerateButton()
     }
-
-
 }
-
-
 
 @Composable
 fun ComposeQuickCashImage() {
@@ -73,7 +69,6 @@ fun ComposeQuickCashImage() {
             .shadow(
                 ambientColor = Color(0xFFb9b9b9),
                 elevation = 20.dp,
-
                 )
     ) {
         Box(
@@ -112,8 +107,6 @@ fun ComposeInputQuickCash() {
         color = Color(0xFFececec),
         modifier = Modifier
             .fillMaxWidth()
-
-
     ) {
 
         Box(
@@ -145,7 +138,6 @@ fun ComposeInputQuickCash() {
                             fontFamily = montyFontFamily,
                             fontSize = 15.sp
                         )
-
                         Text(
                             text = "17.28 USD",
                             modifier = Modifier
@@ -167,7 +159,6 @@ fun ComposeInputQuickCash() {
                         )
                     }
                 }
-
                 Spacer(modifier = Modifier.height(16.dp))
                 Box(modifier = Modifier.border(0.5.dp, Gray, RoundedCornerShape(10.dp)).clip(RoundedCornerShape(10.dp))){
                     Row(

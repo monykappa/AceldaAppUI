@@ -1,6 +1,5 @@
 package com.example.acledaapp.screens
 
-import android.annotation.SuppressLint
 import android.graphics.Paint
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
@@ -18,11 +17,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.AppBarDefaults
-import androidx.compose.material.IconButton
-import androidx.compose.material.Scaffold
-import androidx.compose.material.TopAppBar
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -35,7 +29,6 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -63,7 +56,7 @@ fun ComposeBakong(){
         modifier = Modifier
             .fillMaxSize()
             .background(color = Color(7, 36, 66)),
-        verticalArrangement = Arrangement.Center, // Align content to the top
+        verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Column(
@@ -76,7 +69,7 @@ fun ComposeBakong(){
         ) {
             Column(
                 modifier = Modifier
-                    .fillMaxWidth() // Occupy full width
+                    .fillMaxWidth()
                     .height(50.dp)
                     .background(
                         color = Color(224, 35, 45),
@@ -104,13 +97,10 @@ fun ComposeBakong(){
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.Start
             ) {
-                Text(text = "David Heng", style = TextStyle(fontSize = 20.sp), fontFamily = montyFontFamily)
+                Text(text = "Devit Heng", style = TextStyle(fontSize = 20.sp), fontFamily = montyFontFamily)
                 Text(text = "0 USD", style = TextStyle(fontSize = 20.sp,fontFamily = montyFontFamily))
             }
-
             DotDivider(modifier = Modifier.fillMaxWidth())
-
-
             Column(
                 modifier = Modifier.padding(start = 16.dp, top = 35.dp),
                 verticalArrangement = Arrangement.Center,
@@ -219,80 +209,5 @@ fun DotDivider(modifier: Modifier) {
                 }
             }
         }
-
     }
 }
-@Composable
-fun QRScanCamera() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color = Color(43, 54, 72)),
-        verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ){
-        Column(
-            modifier = Modifier
-                .width(350.dp)
-                .height(700.dp),
-            verticalArrangement = Arrangement.Center,
-        ) {
-
-            Text(text = "Align frame with QR code",
-                style = TextStyle(fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold),
-                color = Color.White,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            Image(painter=painterResource(id=R.drawable.my_qr_code),contentDescription = "QRCODE",modifier = Modifier
-                .width(450.dp)
-                .height(350.dp))
-
-            Text(text = "Accepted",
-                style = TextStyle(fontSize = 30.sp,
-                    fontWeight = FontWeight.Bold),
-                color = Color.White,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            Image(painter=painterResource(id=R.drawable.ic_flashlight),contentDescription = "QRCODE",modifier = Modifier
-                .width(450.dp)
-                .height(100.dp))
-
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth().offset(x = 100.dp)
-            ){
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_flashlight),
-                        contentDescription = "SAVE",
-                        modifier = Modifier
-                            .size(70.dp, 70.dp)
-                            .background(color = Color(81, 103, 128), shape = RoundedCornerShape(100.dp))
-                            .padding(15.dp),
-                    )
-                    Text(text = "Flashlight",style = TextStyle( fontSize = 14.sp),color = Color.White,modifier = Modifier.padding(top = 8.dp))
-                }
-                Column( horizontalAlignment = Alignment.CenterHorizontally,modifier = Modifier.padding(horizontal = 16.dp)) {
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_select_qr),
-                        contentDescription = "SetAmount",
-                        modifier = Modifier
-                            .size(70.dp, 70.dp)
-                            .background(color = Color(81, 103, 128), shape = RoundedCornerShape(100.dp))
-                            .padding(15.dp),
-                    )
-                    Text(text = "Select QR",style = TextStyle( fontSize = 14.sp),color = Color.White,modifier = Modifier.padding(top = 8.dp))
-                }
-
-            }
-        }
-    }
-}
-

@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,7 +22,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
@@ -36,26 +34,20 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color.Companion.Gray
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavController
 import com.example.acledaapp.R
 import androidx.navigation.compose.rememberNavController
 import com.example.acledaapp.models.FavoriteItem
 import com.example.acledaapp.models.MenuItems
-import com.example.acledaapp.models.drawerItems
 import com.example.acledaapp.models.favoriteItems
 import com.example.acledaapp.models.menuRow1
 import com.example.acledaapp.models.menuRow2
 import com.example.acledaapp.models.menuRow3
 import com.example.acledaapp.models.montyFontFamily
 import com.example.acledaapp.models.truenorgFontFamily
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 
 
 fun Modifier.bottomBorderColor(color: Color, borderWidth: Dp) = drawBehind {
