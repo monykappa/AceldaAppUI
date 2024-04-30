@@ -1,1 +1,1 @@
-This project is mainly focused on only designing the UI of ACLEDA mobile app.
+This project is mainly focused on designing the interface of the ACLEDA Mobile App.
